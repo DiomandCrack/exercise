@@ -1,0 +1,87 @@
+html{
+    font-size: 100%;
+    width: 100%;
+    height: 100%;
+}
+body,h1,h2,h3,dl,dd{
+    margin: 0px;
+}
+h1,h2,h3{
+    font-weight: normal;
+    padding: 0px;
+}
+
+@mixin sprite($left,$top,$width:20px,$height:20px){
+    background: url('../img/sprite.png');
+    width: $width;
+    height: $height;
+    background-position: $left,$top;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.logo{
+    @include sprite(0,-230px,46px,40px);
+    
+}
+a{
+    text-decoration:none;
+    color: inherit;
+}
+ul{
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+
+body{
+    font-size: 1em;
+    background: url('../img/bg1.jpg') no-repeat;
+    background-size: 100% 100%;
+    height: 100%;
+}
+
+.header{
+    height: 4.428em;
+    padding-top: 0.75em;
+    display:flex;
+    flex-flow: row wrap;
+        color: #fff;
+}
+
+
+h1{
+    width: 8.083em;
+    font-size: 1.5rem;
+    line-height: 1.4;
+    height: 100%;
+    padding-left: 20px;
+    display:flex;
+}
+
+.nav-bar{
+    width: 72.75rem;
+    height: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    .nav{
+        display: flex;
+        flex-flow: column nowrap;
+        margin: 0 1.6875em;
+        &.active{
+                    i{
+            height: 4px;
+            border-radius: 1px;
+            background: #fff;
+        }
+        }
+        span {
+        line-height: 2.25;
+        }
+
+    }
+
+}
+
+
+
