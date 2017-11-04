@@ -1,0 +1,101 @@
+.container {
+    flex: 1;
+    background: #fff;
+    height: 100%;
+    border-radius: 5px;
+    .seclected-menu {
+        @include flex();
+    }
+}
+
+
+/*--------------------------folder-----------------------------------*/
+
+.col-1 {
+    font-size: 0.75rem;
+    margin: 3px;
+    padding: 6px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border: 1px solid transparent;
+    &.active {
+        border-color: #90c3fd;
+        background: #f1f5fa;
+        .true {
+            opacity: 1;
+        }
+    }
+    &.hover {
+        border-color: #f1f5fa;
+        background: #f1f5fa;
+        .true {
+            opacity: 0.6;
+        }
+    }
+    .true {
+        width: 19px;
+        height: 19px;
+        border-radius: 50%;
+        background: #3b8cff;
+        font-size: 12px;
+        line-height: 19px;
+        color: #fff;
+        text-align: center;
+        opacity: 1;
+    }
+    .file {
+        padding-top: 4px;
+        align-self: center;
+        padding-bottom: 23px;
+        .grey-file {
+            width: 27px;
+            height: 6px;
+            border-radius: 3px 6px 0 0;
+            background: #ecc049;
+        }
+        .main-file {
+            width: 56px;
+            height: 40px;
+            background: #ffd659;
+            border-radius: 0 3px 3px;
+        }
+    }
+    .file-title {
+        text-align: center;
+    }
+    .rename {
+        $box-shadow: #b6d4ff;
+        position: absolute;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        width: 140px;
+        background: #fff;
+        justify-content: space-between;
+        left: 50%;
+        bottom: 6px;
+        transform: translate(-50%, 0);
+        display: none;
+        input {
+            width: 83px;
+            height: 24px;
+            border: 1px solid #c4dcff;
+            box-shadow: 0 0 1px 3px rgba($box-shadow, 0.9);
+            padding: 4px 5px;
+        }
+        .yes,
+        .no {
+            width: 24px;
+            height: 24px;
+            border-radius: 2px;
+            border: 1px solid #cee2ff;
+            box-shadow: 0 0 1px 1px #cee2ff;
+            text-align: center;
+            color: #3b8cff;
+            vertical-align: middle;
+            line-height: 24px;
+        }
+    }
+}

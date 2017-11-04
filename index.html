@@ -1,50 +1,380 @@
 <!doctype html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title></title>
     <meta name="description" content=" ">
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="css/styles.css">
-    <link href="" rel="stylesheet" href="css/bootstrap-grid.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link href="css/font-awesome.css" rel="stylesheet" />
 </head>
 
 <body>
-  <header role="banner" class="header">
-    <h1>
-      <i class="logo"></i>
-      <span>百度网盘</span>
-    </h1>
-    <nav class="nav-bar">
-      <a class="nav active" href="#">
-        <span>网盘</span>
-        <i></i>
-      </a>
-      <a class="nav" href="#">
-        <span>分享</span>
-        <i></i>
-      </a>
-      <a class="nav" href="#">
-        <span>更多</span>
-        <i></i>
-      </a>
-    </nav>
+    <header role="banner" class="header">
+        <h1>
+            <i class="logo"></i>
+            <span>百度网盘</span>
+        </h1>
+        <nav class="nav-bar">
+            <a class="nav active" href="#">
+                <span>网盘</span>
+                <i></i>
+            </a>
+            <a class="nav" href="#">
+                <span>分享</span>
+                <i></i>
+            </a>
+            <a class="nav" href="#">
+                <span>更多</span>
+                <i></i>
+            </a>
+        </nav>
 
-    <div class="person-info">
-      <a href="" class="info-ad">超级会员超低价</a>
-    </div>
-  </header>
+        <div class="person-info">
+            <a href="#" class="info-ad">超级会员超低价</a>
+            <div class="personal-dropdown">
+                <div class="avatar"><img alt="" src="img/go.jpg" /></div>
+                <div class="user-name">钻石裂痕</div>
+                <a href="#" class="vip-icon"><i></i></a>
+                <div class="drop-down-icon"><i></i></div>
+            </div>
+            <i class="cut-line"></i>
+            <a href="#" class="down-client">客户端下载</a>
+            <a href="#" class="alert-icon"><i></i></a>
+            <a href="#" class="menu"><i></i></a>
+            <a href="#" class="skin"><i></i></a>
+            <a href="#" class="vip-center">会员中心</a>
+        </div>
 
-    <main role="main">
-    
+
+    </header>
+
+    <main role="main" class="main">
+        <aside class="side-bar">
+            <ul>
+                <li class="my-passport active"><a href="#"><span>全部文件</span></a></li>
+                <li class="image"><a href="#"><span>图片</span></a></li>
+                <li class="file"><a href="#"><span>文档</span></a></li>
+                <li class="video"><a href="#"><span>文件</span></a></li>
+                <li class="torrent"><a href="#"><span>视频</span></a></li>
+                <li class="music"><a href="#"><span>音乐</span></a></li>
+                <li class="others"><a href="#"><span>其他</span></a></li>
+                <li class="my-share"><a href="#"><span>我的分享</span></a></li>
+                <li class="recycle-bin"><a href="#"><span>回收站</span></a></li>
+            </ul>
+        </aside>
+        <div class="container">
+            <nav class="navbar control-center file-nav">
+                <ul class="nav-pills nav">
+                    <li class="nav-item nav-link active up-load"><a href="#"><i></i>上传</a></li>
+                    <li class="nav-item nav-link create-folder"><a href="#"><i></i>新建文件夹</a></li>
+                    <li class="nav-item nav-link off-line-download"><a href="#"><i></i>离线下载</a></li>
+                    <li class="selected-show-menu">
+                        <ul class="nav">
+                            <li class="nav-item nav-link">
+                                <a href="">分享</a>
+                            </li>
+                            <li class="nav-item nav-link"><a href="">共享</a></li>
+                            <li class="nav-item nav-link"><a href="">下载</a></li>
+                            <li class="nav-item nav-link"><a href="">删除</a></li>
+                            <li class="nav-item nav-link"><a href="">重命名</a></li>
+                            <li class="nav-item nav-link"><a href="">复制到</a></li>
+                            <li class="nav-item nav-link"><a href="">移动到</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item nav-link my-device"><a href="#"><i></i>我的设备</a></li>
+                </ul>
+
+                <div class="search">
+                    <div class="search-border">
+                        <input name="" type="text" value="" placeholder="搜索您的文件" />
+                        <i class="fa fa-search" aria-hidden="true"></i>
+
+                    </div>
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                    <i class="fa fa-sort-amount-desc" aria-hidden="true"></i>
+                </div>
+            </nav>
+            <div class="count-load-file">
+                <div>全部文档</div>
+                <div class="show-num">已全部加载，共<span class="num">0</span>个</div>
+            </div>
+
+
+            <div class="select-all">
+                <div class="check-all">
+                    <i class="true"></i>
+                    <span>全选</span>
+                </div>
+                <div class="bit-all">
+                    大小
+                </div>
+                <div class="date-all">
+                    修改日期
+                </div>
+            </div>
+            <div class="row">
+
+
+                <div class="col-1 ">
+                    <div class="file-con">
+                        <i class="true">✔</i>
+                        <div class="file">
+                            <div class="grey-file"></div>
+                            <div class="main-file"></div>
+                        </div>
+                        <div class="file-title">新建文件夹</div>
+                        <div class="rename">
+                            <input name="" type="text" value="新建文件夹" />
+                            <div class="yes">✔</div>
+                            <div class="no">✘</div>
+                        </div>
+                    </div>
+                    <div class="file-bit">
+                        -
+                    </div>
+                    <time class="change-date">
+                        2017-11-14
+                    </time>
+                </div>
+
+
+                <div class="col-1 ">
+                    <div class="file-con">
+                        <i class="true">✔</i>
+                        <div class="file">
+                            <div class="grey-file"></div>
+                            <div class="main-file"></div>
+                        </div>
+                        <div class="file-title">新建文件夹</div>
+                        <div class="rename">
+                            <input name="" type="text" value="新建文件夹" />
+                            <div class="yes">✔</div>
+                            <div class="no">✘</div>
+                        </div>
+                    </div>
+                    <div class="file-bit">
+                        -
+                    </div>
+                </div>
+
+
+                <div class="col-1 ">
+                    <div class="file-con">
+                        <i class="true">✔</i>
+                        <div class="file">
+                            <div class="grey-file"></div>
+                            <div class="main-file"></div>
+                        </div>
+                        <div class="file-title">新建文件夹</div>
+                        <div class="rename">
+                            <input name="" type="text" value="新建文件夹" />
+                            <div class="yes">✔</div>
+                            <div class="no">✘</div>
+                        </div>
+                    </div>
+                    <div class="file-bit">
+                        -
+                    </div>
+                </div>
+
+
+                <div class="col-1 ">
+                    <i class="true">✔</i>
+                    <div class="file">
+                        <div class="grey-file"></div>
+                        <div class="main-file"></div>
+                    </div>
+                    <div class="file-title">新建文件夹</div>
+                    <div class="rename">
+                        <input name="" type="text" value="新建文件夹" />
+                        <div class="yes">✔</div>
+                        <div class="no">✘</div>
+                    </div>
+                </div>
+
+
+                <div class="col-1 ">
+                    <i class="true">✔</i>
+                    <div class="file">
+                        <div class="grey-file"></div>
+                        <div class="main-file"></div>
+                    </div>
+                    <div class="file-title">新建文件夹</div>
+                    <div class="rename">
+                        <input name="" type="text" value="新建文件夹" />
+                        <div class="yes">✔</div>
+                        <div class="no">✘</div>
+                    </div>
+                </div>
+
+                <div class="col-1 ">
+                    <i class="true">✔</i>
+                    <div class="file">
+                        <div class="grey-file"></div>
+                        <div class="main-file"></div>
+                    </div>
+                    <div class="file-title">新建文件夹</div>
+                    <div class="rename">
+                        <input name="" type="text" value="新建文件夹" />
+                        <div class="yes">✔</div>
+                        <div class="no">✘</div>
+                    </div>
+                </div>
+
+                <div class="col-1 ">
+                    <i class="true">✔</i>
+                    <div class="file">
+                        <div class="grey-file"></div>
+                        <div class="main-file"></div>
+                    </div>
+                    <div class="file-title">新建文件夹</div>
+                    <div class="rename">
+                        <input name="" type="text" value="新建文件夹" />
+                        <div class="yes">✔</div>
+                        <div class="no">✘</div>
+                    </div>
+                </div>
+
+                <div class="col-1 ">
+                    <i class="true">✔</i>
+                    <div class="file">
+                        <div class="grey-file"></div>
+                        <div class="main-file"></div>
+                    </div>
+                    <div class="file-title">新建文件夹</div>
+                    <div class="rename">
+                        <input name="" type="text" value="新建文件夹" />
+                        <div class="yes">✔</div>
+                        <div class="no">✘</div>
+                    </div>
+                </div>
+
+                <div class="col-1 ">
+                    <i class="true">✔</i>
+                    <div class="file">
+                        <div class="grey-file"></div>
+                        <div class="main-file"></div>
+                    </div>
+                    <div class="file-title">新建文件夹</div>
+                    <div class="rename">
+                        <input name="" type="text" value="新建文件夹" />
+                        <div class="yes">✔</div>
+                        <div class="no">✘</div>
+                    </div>
+                </div>
+
+                <div class="col-1 ">
+                    <i class="true">✔</i>
+                    <div class="file">
+                        <div class="grey-file"></div>
+                        <div class="main-file"></div>
+                    </div>
+                    <div class="file-title">新建文件夹</div>
+                    <div class="rename">
+                        <input name="" type="text" value="新建文件夹" />
+                        <div class="yes">✔</div>
+                        <div class="no">✘</div>
+                    </div>
+                </div>
+
+                <div class="col-1 ">
+                    <i class="true">✔</i>
+                    <div class="file">
+                        <div class="grey-file"></div>
+                        <div class="main-file"></div>
+                    </div>
+                    <div class="file-title">新建文件夹</div>
+                    <div class="rename">
+                        <input name="" type="text" value="新建文件夹" />
+                        <div class="yes">✔</div>
+                        <div class="no">✘</div>
+                    </div>
+                </div>
+
+                <div class="col-1 ">
+                    <i class="true">✔</i>
+                    <div class="file">
+                        <div class="grey-file"></div>
+                        <div class="main-file"></div>
+                    </div>
+                    <div class="file-title">新建文件夹</div>
+                    <div class="rename">
+                        <input name="" type="text" value="新建文件夹" />
+                        <div class="yes">✔</div>
+                        <div class="no">✘</div>
+                    </div>
+                </div>
+
+                <div class="col-1 ">
+                    <i class="true">✔</i>
+                    <div class="file">
+                        <div class="grey-file"></div>
+                        <div class="main-file"></div>
+                    </div>
+                    <div class="file-title">新建文件夹</div>
+                    <div class="rename">
+                        <input name="" type="text" value="新建文件夹" />
+                        <div class="yes">✔</div>
+                        <div class="no">✘</div>
+                    </div>
+                </div>
+
+                <div class="col-1 ">
+                    <i class="true">✔</i>
+                    <div class="file">
+                        <div class="grey-file"></div>
+                        <div class="main-file"></div>
+                    </div>
+                    <div class="file-title">新建文件夹</div>
+                    <div class="rename">
+                        <input name="" type="text" value="新建文件夹" />
+                        <div class="yes">✔</div>
+                        <div class="no">✘</div>
+                    </div>
+                </div>
+
+                <div class="col-1 ">
+                    <i class="true">✔</i>
+                    <div class="file">
+                        <div class="grey-file"></div>
+                        <div class="main-file"></div>
+                    </div>
+                    <div class="file-title">新建文件夹</div>
+                    <div class="rename">
+                        <input name="" type="text" value="新建文件夹" />
+                        <div class="yes">✔</div>
+                        <div class="no">✘</div>
+                    </div>
+                </div>
+
+                <div class="col-1 ">
+                    <i class="true">✔</i>
+                    <div class="file">
+                        <div class="grey-file"></div>
+                        <div class="main-file"></div>
+                    </div>
+                    <div class="file-title">新建文件夹</div>
+                    <div class="rename">
+                        <input name="" type="text" value="新建文件夹" />
+                        <div class="yes">✔</div>
+                        <div class="no">✘</div>
+                    </div>
+                </div>
+
+
+            </div>
     </main>
 
     <footer role="contentinfo">
-      
+
     </footer>
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
 </body>
+
 </html>
