@@ -778,136 +778,7 @@ h1 {
 }
 
 /*---------------------------select-all----------------------------------*/
-/* line 419, ../sass/partials/_modules.scss */
-.container {
-  flex: 1;
-  background: #fff;
-  height: 100%;
-  border-radius: 5px;
-}
-/* line 424, ../sass/partials/_modules.scss */
-.container .seclected-menu {
-  display: flex;
-  flex-flow: row nowrap;
-}
-/* line 427, ../sass/partials/_modules.scss */
-.container .row {
-  display: flex;
-  flex-flow: column nowrap;
-  left: 0;
-  position: relative;
-}
-
-/* line 436, ../sass/partials/_modules.scss */
-.col-1 {
-  max-width: 100% !important;
-  flex: 1 !important;
-  font-size: 0.75rem;
-  border-radius: 8px;
-  display: flex;
-  flex-flow: row nowrap;
-  position: relative;
-  left: 0;
-  border-top: 1px solid #f2f6fd;
-  border-bottom: 1px solid #f2f6fd;
-  margin-top: -1px;
-}
-/* line 448, ../sass/partials/_modules.scss */
-.col-1 .file-con {
-  width: 86.0833em;
-  display: flex;
-}
-/* line 452, ../sass/partials/_modules.scss */
-.col-1 .file-bit {
-  width: 22.6667em;
-  line-height: 50px;
-}
-/* line 456, ../sass/partials/_modules.scss */
-.col-1 .change-date {
-  line-height: 50px;
-}
-/* line 459, ../sass/partials/_modules.scss */
-.col-1 .file {
-  padding-top: 1em;
-  align-self: center;
-  padding-bottom: 1.25em;
-}
-/* line 463, ../sass/partials/_modules.scss */
-.col-1 .file .grey-file {
-  width: 12px;
-  height: 3px;
-  border-radius: 3px 6px 0 0;
-  background: #ecc049;
-}
-/* line 469, ../sass/partials/_modules.scss */
-.col-1 .file .main-file {
-  width: 26px;
-  height: 18px;
-  background: #ffd659;
-  border-radius: 0 3px 3px;
-}
-/* line 476, ../sass/partials/_modules.scss */
-.col-1 .true {
-  margin: 1.25em 1.08333em 0;
-  width: 14px;
-  height: 14px;
-  border: 1px solid #d6dce4;
-  font-size: 0.75rem;
-  line-height: 1.58;
-  text-align: center;
-  border-radius: 2px;
-}
-/* line 486, ../sass/partials/_modules.scss */
-.col-1 .file-title {
-  margin-left: 1.25em;
-  margin-top: 1.25em;
-}
-
-/* line 492, ../sass/partials/_modules.scss */
-.file-title {
-  text-align: center;
-  cursor: pointer;
-}
-
-/* line 497, ../sass/partials/_modules.scss */
-.rename {
-  position: absolute;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  background: #fff;
-  justify-content: space-between;
-  left: 6.6667em;
-  bottom: 1em;
-  /*     display: none; */
-}
-/* line 508, ../sass/partials/_modules.scss */
-.rename input {
-  width: 17.6667em;
-  height: 24px;
-  border-radius: 5px;
-  border: 1px solid #c4dcff;
-  box-shadow: 0 0 1px 3px rgba(182, 212, 255, 0.9);
-  padding: 4px 5px;
-  margin-right: 4px;
-}
-/* line 517, ../sass/partials/_modules.scss */
-.rename .yes,
-.rename .no {
-  width: 24px;
-  height: 24px;
-  border-radius: 2px;
-  border: 1px solid #cee2ff;
-  box-shadow: 0 0 1px 1px #cee2ff;
-  text-align: center;
-  color: #3b8cff;
-  vertical-align: middle;
-  line-height: 24px;
-  margin: 0 2px;
-}
-
-/* 
-.container {
+/* .container {
     flex: 1;
     background: #fff;
     height: 100%;
@@ -923,63 +794,62 @@ h1 {
     }
 }
 
-
-
+$file-icon-base: 10px;
 .col-1 {
+    max-width: 100% !important;
+    flex: 1 !important;
     font-size: 0.75rem;
-    margin: 3px;
-    padding: 6px;
     border-radius: 8px;
     display: flex;
-    flex-direction: column;
+    flex-flow: row nowrap;
     position: relative;
-    border: 1px solid transparent;
-    &.active {
-        border-color: #90c3fd;
-        background: #f1f5fa;
-        .true {
-            opacity: 1;
-        }
+    left: 0;
+    border-top: 1px solid #f2f6fd;
+    border-bottom: 1px solid #f2f6fd;
+    margin-top: -1px;
+    .file-con {
+        width: 86.0833em;
+        display: flex;
     }
-    &.hover {
-        border-color: #f1f5fa;
-        background: #f1f5fa;
-        .true {
-            opacity: 0.6;
-        }
+    .file-bit {
+        width: 22.6667em;
+        line-height: 50px;
     }
-    .true {
-        width: 19px;
-        height: 19px;
-        border-radius: 50%;
-        background: #3b8cff;
-        font-size: 12px;
-        line-height: 19px;
-        color: #fff;
-        text-align: center;
-        opacity: 0;
+    .change-date {
+        line-height: 50px;
     }
-    $file-icon-base: 10px;
     .file {
-        padding-top: 4px;
+        padding-top: 1em;
         align-self: center;
-        padding-bottom: 23px;
+        padding-bottom: 1.25em;
         .grey-file {
-            width: 2.7*$file-icon-base;
-            height: 0.6*$file-icon-base;
+            width: 1.2*$file-icon-base;
+            height: 0.3*$file-icon-base;
             border-radius: 3px 6px 0 0;
             background: #ecc049;
         }
         .main-file {
-            width: 5.6*$file-icon-base;
-            height: 4*$file-icon-base;
+            width: 2.6*$file-icon-base;
+            height: 1.8*$file-icon-base;
             background: #ffd659;
             border-radius: 0 3px 3px;
         }
     }
-
+    .true {
+        margin: 1.25em 1.08333em 0;
+        width: 14px;
+        height: 14px;
+        border: 1px solid $check-border;
+        font-size: 0.75rem;
+        line-height: 1.58;
+        text-align: center;
+        border-radius: 2px
+    }
+    .file-title {
+        margin-left: 1.25em;
+        margin-top: 1.25em;
+    }
 }
-
 
 .file-title {
     text-align: center;
@@ -1019,8 +889,133 @@ h1 {
         line-height: 24px;
         margin: 0 2px;
     }
+} */
+/* line 533, ../sass/partials/_modules.scss */
+.container {
+  flex: 1;
+  background: #fff;
+  height: 100%;
+  border-radius: 5px;
 }
-*/
+/* line 538, ../sass/partials/_modules.scss */
+.container .seclected-menu {
+  display: flex;
+  flex-flow: row nowrap;
+}
+/* line 541, ../sass/partials/_modules.scss */
+.container .row {
+  display: flex;
+  flex-flow: row wrap;
+  left: 0;
+  position: relative;
+  padding: 0 1.5rem;
+}
+
+/* line 550, ../sass/partials/_modules.scss */
+.col-1 {
+  margin: 3px;
+  padding: 6px;
+  border-radius: 4px;
+  position: relative;
+  border: 1px solid transparent;
+  font-size: 0.75rem;
+  left: 0;
+}
+/* line 558, ../sass/partials/_modules.scss */
+.col-1 .file-con {
+  display: flex;
+  flex-direction: column;
+}
+/* line 562, ../sass/partials/_modules.scss */
+.col-1.active {
+  border-color: #90c3fd;
+  background: #f1f5fa;
+}
+/* line 565, ../sass/partials/_modules.scss */
+.col-1.active .true {
+  opacity: 1;
+}
+/* line 569, ../sass/partials/_modules.scss */
+.col-1.hover {
+  border-color: #f1f5fa;
+  background: #f1f5fa;
+}
+/* line 572, ../sass/partials/_modules.scss */
+.col-1.hover .true {
+  opacity: 0.6;
+}
+/* line 576, ../sass/partials/_modules.scss */
+.col-1 .true {
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: #3b8cff;
+  font-size: 12px;
+  line-height: 19px;
+  color: #fff;
+  text-align: center;
+  opacity: 0;
+}
+/* line 587, ../sass/partials/_modules.scss */
+.col-1 .file {
+  padding-top: 4px;
+  align-self: center;
+  padding-bottom: 23px;
+}
+/* line 591, ../sass/partials/_modules.scss */
+.col-1 .file .grey-file {
+  width: 27px;
+  height: 6px;
+  border-radius: 3px 6px 0 0;
+  background: #ecc049;
+}
+/* line 597, ../sass/partials/_modules.scss */
+.col-1 .file .main-file {
+  width: 56px;
+  height: 40px;
+  background: #ffd659;
+  border-radius: 0 3px 3px;
+}
+/* line 604, ../sass/partials/_modules.scss */
+.col-1 .file-title {
+  text-align: center;
+}
+/* line 607, ../sass/partials/_modules.scss */
+.col-1 .rename {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 140px;
+  background: #fff;
+  justify-content: space-between;
+  left: 50%;
+  bottom: 6px;
+  transform: translate(-50%, 0);
+  display: none;
+}
+/* line 620, ../sass/partials/_modules.scss */
+.col-1 .rename input {
+  width: 83px;
+  height: 24px;
+  border: 1px solid #c4dcff;
+  box-shadow: 0 0 1px 3px rgba(182, 212, 255, 0.9);
+  padding: 4px 5px;
+}
+/* line 627, ../sass/partials/_modules.scss */
+.col-1 .rename .yes,
+.col-1 .rename .no {
+  width: 24px;
+  height: 24px;
+  border-radius: 2px;
+  border: 1px solid #cee2ff;
+  box-shadow: 0 0 1px 1px #cee2ff;
+  text-align: center;
+  color: #3b8cff;
+  vertical-align: middle;
+  line-height: 24px;
+}
+
 /*------------------------file-end------------------------*/
 /* line 28, ../sass/partials/_nav.scss */
 .navbar {
