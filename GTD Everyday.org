@@ -1,0 +1,86 @@
+#+title: GTD任务管理
+
+* 2017-11-06
+** DONE 早上看40分钟以上的js高级教程
+** TODO 练习:百度云盘
+*** DONE 创建数据格式
+- DataBase
+
+#+BEGIN_SRC js
+dataBase={
+'0':{
+id : 0,
+name:'根目录'
+},
+
+'1':{
+id:1,
+pId:0,
+name:'电影'
+}
+
+'2':{
+id:2,
+pId:0,
+name:'音乐'
+}
+
+}
+#+end_src
+
+- getChildrenById
+
+#+BEGIN_SRC js
+function getChildrenById(db,id){
+  const data = [];
+for(let key in db){
+const item = db[key];
+if(item.pId == id){
+data.push(item);
+}
+}
+return data;
+}
+#+end_src
+
+- getAllParen(db,id)
+
+#+BEGIN_src js
+function getAllParen (db,id){
+const current = db[id]
+let data=[];
+
+if(current){
+data.push(current);
+getAllParen(db,current.pId).concat(data);
+}
+return data
+}
+
+- 根据指定id删除对应的数据
+
+function deleteItemById(db,id){
+if(!id) return; //根目录不能删除
+delete db[id];
+
+let children = getChildrenById(db,id);
+let len = children.length;
+if(len){
+if(let i=0;i<len;i++){
+deleteItemById(db,children[i].id);
+}
+}
+return ture;
+}
+#+end_src
+*** DONE 创建文件夹
+*** DONE 创建面包屑导航栏
+*** TODO 换皮肤 
+** TODO 晚上学习一小时的算法
+** TODO 看21天学习emac的视频
+** TODO 学习Ruby
+
+一点之前必须睡觉
+
+
+

@@ -412,7 +412,11 @@ $check-border:#d6dce4;
         padding-left: 0.5em;
     }
 }
-
+.bread-crumb{
+    & li{
+	cursor:pointer;
+    }
+}
 
 /*---------------------------select-all----------------------------------*/
 
