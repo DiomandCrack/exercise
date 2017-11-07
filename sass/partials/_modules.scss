@@ -399,6 +399,11 @@ $check-border:#d6dce4;
         font-size: 0.75rem;
         line-height: 1.58;
         text-align: center;
+	&.active{
+	    background-image: url('../img/correct.png');
+	    background-size: 12px;
+	    background-repeat: no-repeat;
+	}
     }
     .check-all {
         display: flex;
@@ -436,6 +441,7 @@ $check-border:#d6dce4;
         position: relative;
     }
 }
+
 
 $file-icon-base: 10px;
 .col-1 {
@@ -570,7 +576,7 @@ $file-icon-base: 10px;
             opacity: 1;
         }
     }
-    &.hover {
+    :hover {
         border-color: #f1f5fa;
         background: #f1f5fa;
         .true {
@@ -645,3 +651,32 @@ $file-icon-base: 10px;
 
 
 /*------------------------file-end------------------------*/
+
+/*-----------------------chang-skin----------------------------*/
+.change-skin{
+    $change-skin-color: #0b2020;
+    width: 100%;
+    height: 19.375em;
+    background: rgba($change-skin-color,0.9);
+    position:absolute;
+    display:none;
+    bottom: -999px;
+    // display:flex;
+    justify-content: center;		
+    .change-skin-main{
+	width: 55rem;
+	height: 100%;
+	display:flex;
+	@include flex();
+    }
+    h2{
+	color: #fff;
+	line-height: 2;
+    }
+    .choose-skin{
+	width: 32.6875rem;
+	height: 12rem;
+    }
+}
+
+
