@@ -16,7 +16,7 @@ function createFileNode(fileData){
 	let file = document.createElement('div');
 	file.className = 'col-1';
 	 file.innerHTML =`<div class="file-con">
-                       <i class="fa fa-check true"  aria-hidden="true"></i>
+                       <i class="fa fa-check true file-true"  aria-hidden="true"></i>
                         <div class="file">
                             <div class="grey-file"></div>
                             <div class="main-file"></div>
@@ -109,6 +109,7 @@ function checkAllNode(single){
     const allFiles = vari.conRow.children;
     
     single.classList.toggle('active');
+    
     if(single.classList.contains('active')){
 	vari.checkedBuffer = {length:0};
 	
@@ -136,7 +137,7 @@ vari.container.addEventListener('click',function(e){
 	openFile(dataBase,vari.currentId = target.fileId);
     }
     console.log(target);
-    if(target.classList.contains('true')){ //监听单选按钮
+    if(target.classList.contains('file-true')){ //监听单选按钮
 	showCheckNode(target);
     }
     if(target.parentNode.classList.contains('check-all')){
