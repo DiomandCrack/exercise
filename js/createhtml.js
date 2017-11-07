@@ -32,12 +32,13 @@ function createFileNode(fileData){
 
     
     let fileItems = file.querySelectorAll('div');
+    //把数据中的id赋值给文件夹的每一个组成部分
 	for(let i=0; i<fileItems.length; i++){
 	    fileItems[i].fileId = fileData.id;
 	}
     file.fileId = fileData.id;
     console.log(fileItems[0].fileld);
-    return file;
+    return file;//返回整个文件夹节点
 }
 
 //生成面包屑导航节点
@@ -46,22 +47,24 @@ function createBreadCrumbNode(fileData){
     const href = document.createElement('a');
 
     href.fileId = fileData.id;
-    href.innerHTML = `<i>&gt;</i> ${fileData.name}`;
+    href.innerHTML = `<i>&gt;</i> ${fileData.name}`;//生成面包屑导航html
     href.href = 'javascript:;';
     crumbList.appendChild(href);
     return crumbList;
 }
 
+//生成文件夹
 function createFileList(db,id){
     vari.conRow.innerHTML = '';
     let children = getChildrenById(db,id);
+    vari.childrenAll = children;
     vari.fileNum = children.length;
     children.forEach(function(item,i){
 	vari.conRow.appendChild(createFileNode(item));
     });
 }
 
-
+//生成面包屑导航
 function createBreadCrumb(db,id){
     vari.breadCrumbNav.innerHTML = '';
     var data = getAllParen(db,id);
@@ -73,17 +76,19 @@ function createBreadCrumb(db,id){
 let currentId =0;
 openFile(dataBase,vari.currentId);
 
+//将生成文件夹和导航绑定在一起
 function openFile(db,currentId){
     createFileList(db,currentId);
     createBreadCrumb(db,currentId);
 }
 
+//单选
 function showCheckNode(checkNode){
 
-    const targetParent = checkNode.parentNode.parentNode;
-    console.log(targetParent);
-    const {fileId} = targetParent;
-    const checked = targetParent.classList.toggle('active');
+    const targetParent = checkNode.parentNode.parentNode; //点击的元素的父级的父级 能改变文件夹激活样式的容器
+    
+    const {fileId} = targetParent; //targetParent.fileId = fileId;
+    const checked = targetParent.classList.toggle('active'); // 
 
     const{checkedBuffer,checkAll,conRow} = vari;
     
@@ -95,23 +100,51 @@ function showCheckNode(checkNode){
 	delete checkedBuffer[fileId];
 	checkedBuffer.length--;
     }
-    
-    console.log(checkedBuffer);
-    console.log(length++);
-    
+    console.log(checkedBuffer.length);
     checkAll.classList.toggle('active',checkedBuffer.length===vari.fileNum);
-    
 };
 
-vari.conRow.addEventListener('click',function(e){
+function checkAllNode(single){
+    const {childrenAll,checkAll,checkedBuffer} = vari;
+    const allFiles = vari.conRow.children;
+    
+    single.classList.toggle('active');
+    if(single.classList.contains('active')){
+	vari.checkedBuffer = {length:0};
+	
+	childrenAll.forEach(function(item){
+	    vari.checkedBuffer[item.id] = item;
+	});
+	console.log(checkedBuffer);
+	vari.checkedBuffer.length = childrenAll.length;
+	
+	[...allFiles].forEach(function (item){
+	    item.classList.add('active');
+	});
+    }else{
+	vari.checkedBuffer = {length:0};
+		[...allFiles].forEach(function (item){
+	    item.classList.remove('active');
+	});
+    }
+}
+
+//添加事件
+vari.container.addEventListener('click',function(e){
     const target = e.target;
     if(target.classList.contains('main-file') || target.classList.contains('grey-file') || target.classList.contains('file-title')){
 	openFile(dataBase,vari.currentId = target.fileId);
     }
-
-    if(!target.classList.contains('active')){
+    console.log(target);
+    if(target.classList.contains('true')){ //监听单选按钮
 	showCheckNode(target);
     }
+    if(target.parentNode.classList.contains('check-all')){
+	checkAllNode(target);
+    }
+
+    console.log(vari.checkedBuffer);
+    
 });
 
 vari.breadCrumbNav.addEventListener('click',function(e){

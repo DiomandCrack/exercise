@@ -565,13 +565,6 @@ $file-icon-base: 10px;
     border: 1px solid transparent;
     font-size: 0.75rem;
     left: 0;
-    &:hover {
-        border-color: #f1f5fa;
-        background: #f1f5fa;
-        .true {
-            opacity: 0.6;
-        }
-    }
     .file-con {
         display: flex;
         flex-direction: column;
@@ -583,7 +576,13 @@ $file-icon-base: 10px;
             opacity: 1;
         }
     }
-    
+    &:hover {
+        border-color: #f1f5fa;
+        background: #f1f5fa;
+        .true {
+            opacity: 0.6;
+        }
+    }
     .true {
         width: 19px;
         height: 19px;
