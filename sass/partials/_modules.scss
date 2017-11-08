@@ -110,6 +110,7 @@ body {
     padding-top: 1em;
     @include flex();
     color: #fff;
+    justify-content: space-between;
 }
 
 h1 {
@@ -694,28 +695,37 @@ $file-icon-base: 10px;
 
 /*-----------------------chang-skin----------------------------*/
 .change-skin{
-    $change-skin-color: #0b2020;
+    $change-skin-color: #000;
     width: 100%;
     height: 19.375em;
-    background: rgba($change-skin-color,0.9);
+    background: rgba($change-skin-color,0.75);
     position:absolute;
-    display:none;
-    bottom: -999px;
-    // display:flex;
+    bottom: 0;
+    display:flex;
     justify-content: center;		
     .change-skin-main{
 	width: 55rem;
 	height: 100%;
-	display:flex;
-	@include flex();
+	@include flex(column,nowrap);
     }
     h2{
 	color: #fff;
 	line-height: 2;
     }
+    .skin-con{
+	display: flex;
+	flex-flow: row nowrap;
+    }
     .choose-skin{
-	width: 32.6875rem;
+	flex-basis:32.6875rem;
 	height: 12rem;
+	background: #fff;
+	margin-right: 0.75rem;
+    }
+    .show-skin{
+	background: #333;
+	flex:1
+	
     }
 }
 /*-------------------alert-box--------------------------*/

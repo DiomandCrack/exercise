@@ -15,7 +15,9 @@ const vari ={
     alertBox:document.querySelector('.alert-box'),
     deleteBtn:document.getElementById('btn-delete'),
     body: document.querySelector('body'),
-    prompt:document.createElement('div')
+    prompt:document.createElement('div'),
+    createNewFile:document.querySelector('.create-folder'),
+    fileNum: 0
 };
 
 //生成文件夹节点
@@ -44,7 +46,7 @@ function createFileNode(fileData){
 	    fileItems[i].fileId = fileData.id;
 	}
     file.fileId = fileData.id;
-    console.log(fileItems[0].fileld);
+
     return file;//返回整个文件夹节点
 }
 
@@ -91,9 +93,9 @@ function openFile(db,currentId){
 
 //单选
 function showCheckNode(checkNode){
-
+    const allFiles  = vari.conRow.children;
     const targetParent = checkNode.parentNode.parentNode; //点击的元素的父级的父级 能改变文件夹激活样式的容器
-    
+    const length = [...allFiles].length;
     const {fileId} = targetParent; //targetParent.fileId = fileId;
     const checked = targetParent.classList.toggle('active'); // 
 
@@ -107,8 +109,9 @@ function showCheckNode(checkNode){
 	delete checkedBuffer[fileId];
 	checkedBuffer.length--;
     }
+    
     console.log(checkedBuffer.length);
-    checkAll.classList.toggle('active',checkedBuffer.length===vari.fileNum);
+    checkAll.classList.toggle('active',checkedBuffer.length===length);
 };
 
 // 全选按钮节点
@@ -179,23 +182,38 @@ vari.breadCrumbNav.addEventListener('click',function(e){
 	openFile(dataBase,vari.currentId = target.fileId);
     }
 });
-vari.btnRename.addEventListener('click',function(){
+
+if(vari.checkedBuffer.length===1){
+vari.btnRename.addEventListener('click',permitRename);
+}else{
+    vari.btnRename.removeEventListener('click',permitRename);    
+}
+
+function permitRename(){
     const {checkedBuffer} = vari;
     const length = checkedBuffer.length;
-    setFileTitle(checkedBuffer);
-    right.removeEventListener('click',renameRule);
-    wrong.removeEventListener('click',toggleWrong);
-});
+    setFileTitle(checkedBuffer,true);
+}
 
 vari.deleteBtn.addEventListener('click',function(e){
     let target = e.target;
     vari.body.insertBefore(createPrompt('delete-box'),vari.alertBox);
-    deleteFile(target);
+    deleteFile();
+});
+vari.createNewFile.addEventListener('click',function(e){
+    createFolder();
 });
 //重命名
-function setFileTitle(checkedBuffer){
+
+function setFileTitle(checkedBuffer,boolean){
     const checkedEle = getSelectElement(checkedBuffer)[0];
-    const {fileId,fileNode} = checkedEle;
+    let fileId,fileNode;
+    if(boolean){
+	fileId = checkedEle.fileId;
+	fileNode = checkedEle.fileNode;
+    }else{
+	 fileNode = checkedBuffer;
+    }
     let repeat = 1;
     const nameText = fileNode.querySelector('.file-title');
     const nameChange = fileNode.querySelector('.rename');
@@ -214,37 +232,74 @@ function setFileTitle(checkedBuffer){
     shade.style.transform = 'scale(1)';
     //监听重命名规则事件函数
     function renameRule(){
-		 shade.style.transform = '';
+	shade.style.transform = '';
 	let newName = nameInput.value.trim();	
 	if(!newName){
 	    nameInput.focus();
 	    return alertMessage('文件(夹)名称不能为空，请输入文件名称','error');
 	}
 	if(newName === initName){
+	    	if(!boolean){
+		    const newData =vari.conRow.children[0];
+		    const name = newData.querySelector('.file-title');
+		    console.log(newData.fileId,dataBase);
+		    dataBase[newData.fileId.toString()] = {
+			id: newData.fileId,
+			pId: vari.currentId,
+			name: name.innerHTML
+		    };
+			    	    alertMessage('创建文件成功','success');
+		}
 	    return switchName(nameText,nameChange,'show');
 	}
 	if(!nameConflict(dataBase,vari.currentId,newName)){
 	    nameText.innerHTML = nameInput.value  + `(${repeat})`;
 	    repeat++;
+	    createNewFolder(boolean);
 	    return switchName(nameText,nameChange,'show');
 	}
 
 	nameText.innerHTML = nameInput.value;
-	alertMessage('修改名字成功','success');
+
+	createNewFolder(boolean);
+
 	switchName(nameText,nameChange,'show');
     }
 //关闭按钮规则函数
     function toggleWrong(){
+	if(!boolean){
+	    vari.conRow.removeChild(vari.conRow.children[0]);
+	    	console.log(1);
+	}
 	 shade.style.transform = '';
-	console.log(1);
+
 	switchName(nameText,nameChange,'show');
     }
-    
+    right.removeEventListener('click',renameRule);
+    wrong.removeEventListener('click',toggleWrong);
     right.addEventListener('click',renameRule);
-  
     wrong.addEventListener('click',toggleWrong);
 }
 
+//重命名共用函数
+function createNewFolder(boolean){
+		if(!boolean){
+		    const newData =vari.conRow.children[0];
+		    const name = newData.querySelector('.file-title');
+		    console.log(newData.fileId,dataBase);
+		    dataBase[newData.fileId.toString()] = {
+			id: newData.fileId,
+			pId: vari.currentId,
+			name: name.innerHTML
+		    };
+		    vari.fileNum = vari.fileNum+1;
+		}
+    	if(boolean){
+	    alertMessage('修改名字成功','success');
+	}else{
+	    alertMessage('创建文件成功','success');
+	}
+}
 //input和title切换显示隐藏函数
 function switchName(show,hidden,classType){
     show.classList.add(classType);
@@ -269,7 +324,7 @@ function getSelectElement(checkedBuffer){
 
 //提示框
 function alertMessage(text,type){
-    console.log(vari.alertBox);
+    
     vari.alertBox.innerHTML= text;
     vari.alertBox.classList.add(type);
     animation({
@@ -317,7 +372,7 @@ function createPrompt(type){
     `;
     return prompt;
 }
-function deleteFile(target){
+function deleteFile(newOn){
     const submit = document.querySelector('.delete-box .btn-submit');
     const cancel = document.querySelector('.delete-box .btn-cancel');
     const prompt = document.querySelector('.prompt');
@@ -328,6 +383,18 @@ function deleteFile(target){
     // 	prompt.children.classList.remove('delete-box');
 	
     // }
+    if(newOn){//如果是新建文件
+	const data= getSelectElement(vari.checkedBuffer);
+	console.log(data);
+	data.forEach(function(item){
+	    item.fileNode.classList.remove('active');
+	    vari.checkedBuffer = {length:0};
+	});
+	if(vari.checkAll.classList.contains('active')){
+	     vari.checkAll.classList.remove('active');
+	}
+	return;
+    }
     cancel.onclick = function(){
 	prompt.classList.remove('show');
 	prompt.innerHTML = '';
@@ -337,6 +404,7 @@ function deleteFile(target){
 	console.log(data);
 	data.forEach(function(item){
 	    let file = item.fileNode;
+	    	    item.fileNode.classList.remove('active');
 	    file.parentNode.removeChild(file);
 	    vari.checkedBuffer = {length:0};
 	    deleteDataById(dataBase,item.fileId);
@@ -349,9 +417,26 @@ function deleteFile(target){
 	prompt.classList.remove('show');
 	prompt.innerHTML = '';
     };
-
-    
 }
+
+//新建文件夹
+function createFolder(){
+        let newFolder = {
+	    id: Date.now(),
+	    name: '新建文件夹'};
+    const newFile = createFileNode(newFolder);
+
+    const newData =vari.conRow.children[0];
+    if(newData){
+	console.log(newData);
+	vari.conRow.insertBefore(newFile,newData);
+    }else{
+	vari.conRow.appendChild(newFile);
+    }
+    deleteFile(true);
+    	setFileTitle(newFile);
+}
+
 
 
 
