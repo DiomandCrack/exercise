@@ -122,19 +122,23 @@ function checkAllNode(single){
 	    vari.checkedBuffer[item.id] = item;
 	});
 	console.log(checkedBuffer);
+	
 	vari.checkedBuffer.length = childrenAll.length;
 	
 	[...allFiles].forEach(function (item){
 	    item.classList.add('active');
 	});
+	showSubNav();
     }else{
 	vari.checkedBuffer = {length:0};
 		[...allFiles].forEach(function (item){
 	    item.classList.remove('active');
-	});
+		});
+	showSubNav();
     }
 }
 
+//显示副控制按钮
 function showSubNav(){
     const {checkedBuffer} = vari;
     const length = checkedBuffer.length;
