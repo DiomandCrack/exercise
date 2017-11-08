@@ -733,5 +733,96 @@ $file-icon-base: 10px;
 	background: #ff6e6e;
 	color: #fff;
     }
+    &.success{
+	background: #3b8cff;
+	color: #fff;
+    }
 }
 
+/*---------------------prompt-box-----------------------*/
+
+.prompt{
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    position:absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 99;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.75rem;
+    color: #666666;
+    display:none;
+    &.show{
+	display:flex;
+    }
+    .delete-box{
+	width: 26rem;
+	height: 15rem;
+	background: $control-color;
+	position:absolute;
+	@include flex(column,nowrap);
+	    border-radius: 6px;
+    overflow:hidden;
+	h4{
+	    font-size: 0.875rem;
+	    line-height: 3;
+	    padding-left: 1rem;
+	    background: #f7faff;
+	    border-bottom: 1px solid #c4dbfe;
+	    color: #727c90;
+	}
+    }
+}
+.main-prompt{
+    padding-top: 3em;
+    line-height: 1.75;
+    width: 24em;
+    height: 13.3333em;
+    align-self: center;
+    text-align: center;
+    
+    .btn-confirm{
+	margin-top: 1.5em;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+    }
+    .btn{
+	width: 8em;
+	height: 2.66667em;
+	$btn-main-color: #3b8cff;
+	$btn-sub-color: #c0d9fe;
+	line-height: 2.66667em;
+	padding: 0px;
+	&.btn-submit{
+	    background: $btn-main-color;
+	    color:#ffffff;
+	    border: 1px solid $btn-main-color;
+	}
+	&.btn-cancel{
+	    border: 1px solid $btn-sub-color;
+	    color: $btn-main-color;
+	}
+    }
+}
+
+.vip-ad{
+    display:flex;
+    justify-content: space-between;
+    padding: 0 0.5em;
+    background: #faf2d3;
+    line-height: 3;
+    height: 3em;
+}
+.vip-sign-btn{
+    background: #fd6d65;
+    margin-top: 0.5em;
+    padding: 0  0.75em;
+    color: $control-color;
+    line-height: 2;
+    height: 2em;
+    border-radius:1px;
+    cursor: pointer;
+}

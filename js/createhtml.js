@@ -12,7 +12,10 @@ const vari ={
     subNav: document.querySelector('.sub-nav'),
     btnRename: document.getElementById('btn-rename'),
     offlineDownload:document.querySelector('.off-line-download'),
-    alertBox:document.querySelector('.alert-box')
+    alertBox:document.querySelector('.alert-box'),
+    deleteBtn:document.getElementById('btn-delete'),
+    body: document.querySelector('body'),
+    prompt:document.createElement('div')
 };
 
 //生成文件夹节点
@@ -185,6 +188,12 @@ vari.btnRename.addEventListener('click',function(){
     right.removeEventListener('click',renameRule);
     wrong.removeEventListener('click',toggleWrong);
 });
+
+vari.deleteBtn.addEventListener('click',function(e){
+    let target = e.target;
+    vari.body.insertBefore(createPrompt('delete-box'),vari.alertBox);
+    deleteFile(target);
+});
 //重命名
 function setFileTitle(checkedBuffer){
     const checkedEle = getSelectElement(checkedBuffer)[0];
@@ -221,8 +230,9 @@ function setFileTitle(checkedBuffer){
 	    repeat++;
 	    return switchName(nameText,nameChange,'show');
 	}
-	nameText.innerHTML = nameInput.value;
 
+	nameText.innerHTML = nameInput.value;
+	alertMessage('修改名字成功','success');
 	switchName(nameText,nameChange,'show');
     }
 //关闭按钮规则函数
@@ -280,6 +290,67 @@ function alertMessage(text,type){
 	},2000);
 	    }
     });
+}
+//删除按钮
+
+function createPrompt(type){
+    const {prompt} =vari; 
+    prompt.className = 'prompt show';
+    prompt.innerHTML =` 
+          <div class="${type}">
+      <h4>确认删除</h4>
+      <div class="main-prompt">
+	<div>
+	  	  确认要把所选文件放入回收站吗？
+	</div>
+	<div>
+	  删除文件可在10天内通过回收站还原
+	</div>
+	<div class="btn-confirm">
+	  <div class="btn-submit btn">确定</div>
+	  <div class="btn-cancel btn">取消</div>
+	</div>
+      </div>
+      <div class="vip-ad">
+	<span><i></i>开通超级会员立享回收站30天保存特权</span>
+	<div class="vip-sign-btn"><a href="https://pan.baidu.com/buy/center?tag=8&form=deletefile">立即开通</a></div>
+      </div>
+    </div>
+    `;
+    return prompt;
+}
+function deleteFile(target){
+    const {checkedBuffer} = vari;
+    const submit = document.querySelector('.delete-box .btn-submit');
+    const cancel = document.querySelector('.delete-box .btn-cancel');
+    const prompt = document.querySelector('.prompt');
+    // console.log(prompt.children);
+
+    // if(target.classList.contains('btn-cancel')){
+    // 	console.log('pro');
+    // 	prompt.children.classList.remove('delete-box');
+	
+    // }
+	console.log(checkedBuffer);
+    cancel.onclick = function(){
+	prompt.classList.remove('show');
+	prompt.innerHTML = '';
+    };
+    submit.onclick = function(){
+	const data= getSelectElement(checkedBuffer);
+	data.forEach(function(item){
+	    const file = item.fileNode;
+	    file.parentNode.removeChild(file);
+	    vari.checkedBuffer = {length:0};
+	    deleteDataById(dataBase,item.fileId);
+	    // console.log(dataBase);
+	    // console.log(checkedBuffer);
+	});
+	prompt.classList.remove('show');
+	prompt.innerHTML = '';
+    };
+
+    
 }
 
 

@@ -52,7 +52,7 @@ function deleteDataById (db,id) {
 // deleteDataById(dataBase,2);
 // console.log(dataBase);
 
-//判断名字是否可C用
+//判断名字是否可用
 function nameConflict(db,id,text){
     const data = getChildrenById(db,id);
     return data.every(item => item.name !==text );

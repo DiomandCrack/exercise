@@ -1129,6 +1129,109 @@ $file-icon-base: 10px;
   background: #ff6e6e;
   color: #fff;
 }
+/* line 736, ../sass/partials/_modules.scss */
+.alert-box.success {
+  background: #3b8cff;
+  color: #fff;
+}
+
+/*---------------------prompt-box-----------------------*/
+/* line 744, ../sass/partials/_modules.scss */
+.prompt {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 99;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.75rem;
+  color: #666666;
+  display: none;
+}
+/* line 757, ../sass/partials/_modules.scss */
+.prompt.show {
+  display: flex;
+}
+/* line 760, ../sass/partials/_modules.scss */
+.prompt .delete-box {
+  width: 26rem;
+  height: 15rem;
+  background: #fff;
+  position: absolute;
+  display: flex;
+  flex-flow: column nowrap;
+  border-radius: 6px;
+  overflow: hidden;
+}
+/* line 768, ../sass/partials/_modules.scss */
+.prompt .delete-box h4 {
+  font-size: 0.875rem;
+  line-height: 3;
+  padding-left: 1rem;
+  background: #f7faff;
+  border-bottom: 1px solid #c4dbfe;
+  color: #727c90;
+}
+
+/* line 778, ../sass/partials/_modules.scss */
+.main-prompt {
+  padding-top: 3em;
+  line-height: 1.75;
+  width: 24em;
+  height: 13.3333em;
+  align-self: center;
+  text-align: center;
+}
+/* line 786, ../sass/partials/_modules.scss */
+.main-prompt .btn-confirm {
+  margin-top: 1.5em;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+/* line 792, ../sass/partials/_modules.scss */
+.main-prompt .btn {
+  width: 8em;
+  height: 2.66667em;
+  line-height: 2.66667em;
+  padding: 0px;
+}
+/* line 799, ../sass/partials/_modules.scss */
+.main-prompt .btn.btn-submit {
+  background: #3b8cff;
+  color: #ffffff;
+  border: 1px solid #3b8cff;
+}
+/* line 804, ../sass/partials/_modules.scss */
+.main-prompt .btn.btn-cancel {
+  border: 1px solid #c0d9fe;
+  color: #3b8cff;
+}
+
+/* line 811, ../sass/partials/_modules.scss */
+.vip-ad {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0.5em;
+  background: #faf2d3;
+  line-height: 3;
+  height: 3em;
+}
+
+/* line 819, ../sass/partials/_modules.scss */
+.vip-sign-btn {
+  background: #fd6d65;
+  margin-top: 0.5em;
+  padding: 0  0.75em;
+  color: #fff;
+  line-height: 2;
+  height: 2em;
+  border-radius: 1px;
+  cursor: pointer;
+}
 
 /* line 28, ../sass/partials/_nav.scss */
 .navbar {
