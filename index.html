@@ -72,19 +72,19 @@
                     <li class="nav-item nav-link create-folder"><a href="#"><i></i>新建文件夹</a></li>
                     <li class="nav-item nav-link off-line-download"><a href="#"><i></i>离线下载</a></li>
                     <li class="selected-show-menu">
-                        <ul class="nav">
+                        <ul class="sub-nav">
                             <li class="nav-item nav-link">
-                                <a href="">分享</a>
+                                <a href="javascript:;">分享</a>
                             </li>
-                            <li class="nav-item nav-link"><a href="">共享</a></li>
-                            <li class="nav-item nav-link"><a href="">下载</a></li>
-                            <li class="nav-item nav-link"><a href="">删除</a></li>
-                            <li class="nav-item nav-link"><a href="">重命名</a></li>
-                            <li class="nav-item nav-link"><a href="">复制到</a></li>
-                            <li class="nav-item nav-link"><a href="">移动到</a></li>
+                            <li class="nav-item nav-link"><a href="javascript:;">共享</a></li>
+                            <li class="nav-item nav-link"><a href="javascript:;">下载</a></li>
+                            <li class="nav-item nav-link"><a href="javascript:;">删除</a></li>
+                            <li class="nav-item nav-link disable" id="btn-rename"><a href="javascript:;">重命名</a></li>
+                            <li class="nav-item nav-link"><a href="javascript:;">复制到</a></li>
+                            <li class="nav-item nav-link"><a href="javascript:;">移动到</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item nav-link my-device"><a href="#"><i></i>我的设备</a></li>
+                    <li class="nav-item nav-link my-device"><a href="javascript:;"><i></i>我的设备</a></li>
                 </ul>
 
                 <div class="search">
@@ -146,7 +146,7 @@
 
 
             </div>
-
+	    <div class="huge-shade"></div>
 </div>
 	<div class="change-skin">
 	  <div class="change-skin-main">
@@ -171,11 +171,15 @@
     <footer role="contentinfo">
 
     </footer>
+
+    <div class="alert-box">
+    </div>
     <script src="js/jquery.js" charset="GBK"></script>
     <script src="js/bootstrap.min.js" charset="GBK"></script>
     <script src="js/data.js" charset="GBK"></script>
     <script src="js/checkdata.js" charset="GBK"></script>
     <script src="js/createhtml.js" charset="GBK"></script>
+        <script src="js/tools.js" charset="GBK"></script>
 </body>
 
 </html>

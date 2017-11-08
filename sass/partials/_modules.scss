@@ -102,6 +102,7 @@ body {
     background-size: 100% 100%;
     height: 100%;
     padding-right: 10px;
+    overflow:hidden;
 }
 
 .header {
@@ -372,7 +373,34 @@ $list-height: 2.8125rem;
         }
     }
 }
+/*----------------shade--------------*/
+.container{
+    position: relative;
+}
+.huge-shade{
+    width: 100%;
+    height: 100%;
+    position:absolute;
+    left: 0px;
+    top: 0px;
+    opacity: 0;
+    z-index: 2;
+    transform: scale(0);
+}
 
+/*---------------rename----------------*/
+.sub-nav{
+    @include flex();
+    display:none;
+}
+.disable{
+    color: #9dc5ff !important;
+    border-color: #9dc5ff !important;
+    a {
+	cursor: default;
+    }
+}
+/*-----------------rename end-----------*/
 .count-load-file {
     width: 100%;
     display: flex;
@@ -382,6 +410,9 @@ $list-height: 2.8125rem;
     padding: 0 1rem 1rem;
 }
 
+.alert-module{
+    padding: 1rem;
+}
 
 /*--------------------------folder-----------------------------------*/
 
@@ -614,6 +645,10 @@ $file-icon-base: 10px;
     }
     .file-title {
         text-align: center;
+	display:none;
+	&.show{
+	    display:block;
+	}
     }
     .rename {
         $box-shadow: #b6d4ff;
@@ -628,6 +663,10 @@ $file-icon-base: 10px;
         bottom: 6px;
         transform: translate(-50%, 0);
         display: none;
+	&.show{
+	    display:flex;
+	}
+	z-index:999;
         input {
             width: 83px;
             height: 24px;
@@ -679,5 +718,20 @@ $file-icon-base: 10px;
 	height: 12rem;
     }
 }
+/*-------------------alert-box--------------------------*/
 
+.alert-box{
+    font-size: 0.75rem;
+    position: absolute;
+    left:50%;
+    top: -50px;
+    transform: translate(-50%,0);
+    padding:1em;
+    border-radius: 5px;
+    z-index: 10;
+    &.error{
+	background: #ff6e6e;
+	color: #fff;
+    }
+}
 
