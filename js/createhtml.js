@@ -121,16 +121,14 @@ function checkAllNode(single){
     if(single.classList.contains('active')){
 	vari.checkedBuffer = {length:0};
 	
-	childrenAll.forEach(function(item){
-	    vari.checkedBuffer[item.id] = item;
-	});
-	console.log(checkedBuffer);
-	
 	vari.checkedBuffer.length = childrenAll.length;
 	
 	[...allFiles].forEach(function (item){
 	    item.classList.add('active');
+	    vari.checkedBuffer[item.fileId] = item;
+	    console.log(vari.checkedBuffer);
 	});
+
 	showSubNav();
     }else{
 	vari.checkedBuffer = {length:0};
@@ -261,7 +259,7 @@ function getSelectElement(checkedBuffer){
 	    const currentItem = checkedBuffer[key];
 
 	    data.push({
-		fileId: key,
+		fileId: parseFloat(key),
 		fileNode: currentItem
 	    });
 	}
@@ -320,7 +318,6 @@ function createPrompt(type){
     return prompt;
 }
 function deleteFile(target){
-    const {checkedBuffer} = vari;
     const submit = document.querySelector('.delete-box .btn-submit');
     const cancel = document.querySelector('.delete-box .btn-cancel');
     const prompt = document.querySelector('.prompt');
@@ -331,21 +328,24 @@ function deleteFile(target){
     // 	prompt.children.classList.remove('delete-box');
 	
     // }
-	console.log(checkedBuffer);
     cancel.onclick = function(){
 	prompt.classList.remove('show');
 	prompt.innerHTML = '';
     };
     submit.onclick = function(){
-	const data= getSelectElement(checkedBuffer);
+	const data= getSelectElement(vari.checkedBuffer);
+	console.log(data);
 	data.forEach(function(item){
-	    const file = item.fileNode;
+	    let file = item.fileNode;
 	    file.parentNode.removeChild(file);
 	    vari.checkedBuffer = {length:0};
 	    deleteDataById(dataBase,item.fileId);
 	    // console.log(dataBase);
 	    // console.log(checkedBuffer);
 	});
+	if(vari.checkAll.classList.contains('active')){
+	     vari.checkAll.classList.remove('active');
+	}
 	prompt.classList.remove('show');
 	prompt.innerHTML = '';
     };
