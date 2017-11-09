@@ -98,7 +98,7 @@ ul {
 
 body {
     font-size: 1em;
-    background: url('../img/bg1.jpg') no-repeat;
+    background: url('../img/bg/bg9.jpg') no-repeat;
     background-size: 100% 100%;
     height: 100%;
     padding-right: 10px;
@@ -577,6 +577,7 @@ $file-icon-base: 10px;
     background: #fff;
     height: 100%;
     border-radius: 5px;
+    opacity:0.95;
     .seclected-menu {
         @include flex();
     }

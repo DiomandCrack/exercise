@@ -17,7 +17,8 @@ const vari ={
     body: document.querySelector('body'),
     prompt:document.createElement('div'),
     createNewFile:document.querySelector('.create-folder'),
-    fileNum: 0
+    fileNum: 0,
+    repeat:1
 };
 
 //生成文件夹节点
@@ -89,6 +90,7 @@ openFile(dataBase,vari.currentId);
 function openFile(db,currentId){
     createFileList(db,currentId);
     createBreadCrumb(db,currentId);
+    
 }
 
 //单选
@@ -110,7 +112,7 @@ function showCheckNode(checkNode){
 	checkedBuffer.length--;
     }
     
-    console.log(checkedBuffer.length);
+    console.log(checkedBuffer);
     checkAll.classList.toggle('active',checkedBuffer.length===length);
 };
 
@@ -183,16 +185,17 @@ vari.breadCrumbNav.addEventListener('click',function(e){
     }
 });
 
-if(vari.checkedBuffer.length===1){
 vari.btnRename.addEventListener('click',permitRename);
-}else{
-    vari.btnRename.removeEventListener('click',permitRename);    
-}
 
-function permitRename(){
-    const {checkedBuffer} = vari;
-    const length = checkedBuffer.length;
-    setFileTitle(checkedBuffer,true);
+
+    function permitRename(){
+	if(vari.checkedBuffer.length===1){
+	    const {checkedBuffer} = vari;
+	    const length = checkedBuffer.length;
+	    setFileTitle(checkedBuffer,true);
+	}else{
+	    vari.btnRename.removeEventListener('click',permitRename);
+	}
 }
 
 vari.deleteBtn.addEventListener('click',function(e){
@@ -214,7 +217,7 @@ function setFileTitle(checkedBuffer,boolean){
     }else{
 	 fileNode = checkedBuffer;
     }
-    let repeat = 1;
+
     const nameText = fileNode.querySelector('.file-title');
     const nameChange = fileNode.querySelector('.rename');
     let nameInput = nameChange.querySelector('input');
@@ -238,24 +241,15 @@ function setFileTitle(checkedBuffer,boolean){
 	    nameInput.focus();
 	    return alertMessage('文件(夹)名称不能为空，请输入文件名称','error');
 	}
-	if(newName === initName){
-	    	if(!boolean){
-		    const newData =vari.conRow.children[0];
-		    const name = newData.querySelector('.file-title');
-		    console.log(newData.fileId,dataBase);
-		    dataBase[newData.fileId.toString()] = {
-			id: newData.fileId,
-			pId: vari.currentId,
-			name: name.innerHTML
-		    };
-			    	    alertMessage('创建文件成功','success');
-		}
-	    return switchName(nameText,nameChange,'show');
-	}
+	console.log(nameInput);
+	
+	 if(newName === initName && boolean){   return switchName(nameText,nameChange,'show');}
 	if(!nameConflict(dataBase,vari.currentId,newName)){
-	    nameText.innerHTML = nameInput.value  + `(${repeat})`;
-	    repeat++;
+	    console.log(1);
+	    nameText.innerHTML = nameInput.value = nameInput.value  + `(${vari.repeat})`;
+	    vari.repeat++;
 	    createNewFolder(boolean);
+	    
 	    return switchName(nameText,nameChange,'show');
 	}
 
@@ -267,18 +261,24 @@ function setFileTitle(checkedBuffer,boolean){
     }
 //关闭按钮规则函数
     function toggleWrong(){
+	shade.style.transform = '';
 	if(!boolean){
 	    vari.conRow.removeChild(vari.conRow.children[0]);
 	    	console.log(1);
 	}
-	 shade.style.transform = '';
 
 	switchName(nameText,nameChange,'show');
     }
-    right.removeEventListener('click',renameRule);
-    wrong.removeEventListener('click',toggleWrong);
-    right.addEventListener('click',renameRule);
-    wrong.addEventListener('click',toggleWrong);
+    // right.removeEventListener('click',renameRule);
+    // wrong.removeEventListener('click',toggleWrong);
+    // right.addEventListener('click',renameRule);
+    // wrong.addEventListener('click',toggleWrong);
+    right.onclick = function(){
+	renameRule(boolean);
+    };
+    wrong.onclick = function(){
+	toggleWrong(boolean);
+    };
 }
 
 //重命名共用函数
@@ -286,7 +286,7 @@ function createNewFolder(boolean){
 		if(!boolean){
 		    const newData =vari.conRow.children[0];
 		    const name = newData.querySelector('.file-title');
-		    console.log(newData.fileId,dataBase);
+		    console.log();
 		    dataBase[newData.fileId.toString()] = {
 			id: newData.fileId,
 			pId: vari.currentId,
@@ -324,7 +324,7 @@ function getSelectElement(checkedBuffer){
 
 //提示框
 function alertMessage(text,type){
-    
+    clearTimeout(alertMessage.timer);
     vari.alertBox.innerHTML= text;
     vari.alertBox.classList.add(type);
     animation({
@@ -338,8 +338,12 @@ function alertMessage(text,type){
 	el:vari.alertBox,
 	attrs:{
 	    top: -50
-	}
-	    });		
+	},
+		cb(){
+		    				vari.alertBox.innerHTML ='';
+		vari.alertBox.classList.remove(type);
+		}
+	    });
 	},2000);
 	    }
     });
