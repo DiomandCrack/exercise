@@ -98,8 +98,9 @@ ul {
 
 body {
     font-size: 1em;
-    background: url('../img/bg/bg9.jpg') no-repeat;
-    background-size: 100% 100%;
+    background: url('../img/bg/bg8.jpg') no-repeat;
+    background-size: auto 150%;
+    background-attachment: fixed;
     height: 100%;
     padding-right: 10px;
     overflow:hidden;
@@ -110,29 +111,33 @@ body {
     padding-top: 1em;
     @include flex();
     color: #fff;
-    justify-content: space-between;
 }
 
 h1 {
-    width: 8.083em;
+    flex-basis: 10.93rem;
     font-size: 1.5rem;
     line-height: 1.4;
     height: 100%;
     padding-left: 20px;
     display: flex;
 }
-
+.nav-con{
+    flex:1;
+    display:flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
 .nav-bar {
-    width: 72.75rem;
     height: 100%;
     display: flex;
     flex-flow: row nowrap;
+    justify-content: flex-start;
     .nav {
         width: 2.4em;
         text-align: center;
         display: flex;
         flex-flow: column nowrap;
-        margin: 0 1.8em;
+        margin: 0 1.8rem;
         &:hover span {
             @include shade();
         }
@@ -702,8 +707,11 @@ $file-icon-base: 10px;
     background: rgba($change-skin-color,0.75);
     position:absolute;
     bottom: 0;
-    display:flex;
-    justify-content: center;		
+    display:none;
+    justify-content: center;
+    &.show{
+	display: flex;
+    }
     .change-skin-main{
 	width: 55rem;
 	height: 100%;
@@ -751,7 +759,8 @@ $file-icon-base: 10px;
 }
 
 /*---------------------prompt-box-----------------------*/
-
+	$btn-main-color: #3b8cff;
+	$btn-sub-color: #c0d9fe;
 .prompt{
     width: 100%;
     height: 100%;
@@ -768,15 +777,14 @@ $file-icon-base: 10px;
     &.show{
 	display:flex;
     }
-    .delete-box{
+    .prompt-box{
 	width: 26rem;
-	height: 15rem;
+	border-radius: 6px;
 	background: $control-color;
 	position:absolute;
 	@include flex(column,nowrap);
-	    border-radius: 6px;
-    overflow:hidden;
-	h4{
+	overflow:hidden;
+		h4{
 	    font-size: 0.875rem;
 	    line-height: 3;
 	    padding-left: 1rem;
@@ -784,6 +792,10 @@ $file-icon-base: 10px;
 	    border-bottom: 1px solid #c4dbfe;
 	    color: #727c90;
 	}
+    }
+    .delete-box{
+	height: 15rem;
+
     }
 }
 .main-prompt{
@@ -795,18 +807,18 @@ $file-icon-base: 10px;
     text-align: center;
     
     .btn-confirm{
-	margin-top: 1.5em;
+	margin-top: 1em;
 	width: 100%;
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
     }
     .btn{
 	width: 8em;
 	height: 2.66667em;
-	$btn-main-color: #3b8cff;
-	$btn-sub-color: #c0d9fe;
 	line-height: 2.66667em;
 	padding: 0px;
+	margin: 0.2em;
+	border-radius: 4px;
 	&.btn-submit{
 	    background: $btn-main-color;
 	    color:#ffffff;
@@ -836,4 +848,51 @@ $file-icon-base: 10px;
     height: 2em;
     border-radius:1px;
     cursor: pointer;
+}
+
+.infinity-menu{
+    height: 18.125rem;
+    .menu-con{
+	width: 100%;
+	height: 11.875rem;
+	background: #ccc;
+	padding: 0 0.5rem;
+	background-clip: content-box;
+    }
+    .create-folder {
+	margin-right: 8em;
+            i {
+		margin-right: 0.2em;
+            @include sprite(-40px,
+            -160px);
+        }
+            &:hover i {
+            @include sprite(-160px,
+            -160px);
+        }
+	}
+    .btn-small{
+	width: 6.35rem;
+	height: 2.66667em;
+	border: 1px solid $btn-sub-color;
+	color: $btn-main-color;
+	border-radius: 4px;
+	line-height: 1.6667em;
+	padding: 0.5em;
+	text-align: center;
+	&.submit{
+	    background: $btn-main-color;
+	    color: $control-color;
+	}
+	&.submit,&.cancel{
+	    margin: 0 0.3em;
+	}
+    }
+}
+
+.btn-group{
+    flex-grow:1;
+    display:flex;
+    align-items: center;
+    padding: 0 0.5rem;
 }

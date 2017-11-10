@@ -13,10 +13,13 @@
 
 <body>
     <header role="banner" class="header">
-        <h1>
+      <h1>
             <i class="logo"></i>
             <span>百度网盘</span>
-        </h1>
+      </h1>
+
+      <div class="nav-con">
+
         <nav class="nav-bar">
             <a class="nav active" href="#">
                 <span>网盘</span>
@@ -47,6 +50,10 @@
             <a href="#" class="skin"><i></i></a>
             <a href="#" class="vip-center">会员中心</a>
         </div>
+
+
+      </div>
+
 
 
     </header>
@@ -80,8 +87,8 @@
                             <li class="nav-item nav-link"><a href="javascript:;">下载</a></li>
                             <li class="nav-item nav-link" id="btn-delete"><a href="javascript:;">删除</a></li>
                             <li class="nav-item nav-link disable" id="btn-rename"><a href="javascript:;">重命名</a></li>
-                            <li class="nav-item nav-link"><a href="javascript:;">复制到</a></li>
-                            <li class="nav-item nav-link"><a href="javascript:;">移动到</a></li>
+                            <li class="nav-item nav-link copy-to"><a href="javascript:;">复制到</a></li>
+                            <li class="nav-item nav-link move-to"><a href="javascript:;">移动到</a></li>
                         </ul>
                     </li>
                     <li class="nav-item nav-link my-device"><a href="javascript:;"><i></i>我的设备</a></li>
@@ -181,31 +188,28 @@
 
     </footer>
 
+<div class="prompt show">
+       <div class="infinity-menu prompt-box">
+ 	<h4>移动到</h4>
+ 	<div class="menu-con main-prompt">
+ 	  <div class="menu">
+
+ 	  </div>
+ 	</div>
+ 	<div class="btn-group">
+ 	  <div class="create-folder btn-small">
+ 	    <i></i>新建文件夹
+ 	</div>
+ 	<div class="submit btn-small">确定</div>
+ 	<div class="cancel btn-small">取消</div>
+	</div>
+       </div>
+<div>    
     <div class="alert-box">
     </div>
 
-    <!-- <div class="prompt"> -->
-    <!--       <div class="delete-box"> -->
-    <!--   <h4>确认删除</h4> -->
-    <!--   <div class="main-prompt"> -->
-    <!-- 	<div> -->
-    <!-- 	  	  确认要把所选文件放入回收站吗？ -->
-    <!-- 	</div> -->
-    <!-- 	<div> -->
-    <!-- 	  删除文件可在10天内通过回收站还原 -->
-    <!-- 	</div> -->
-    <!-- 	<div class="btn-confirm"> -->
-    <!-- 	  <div class="btn-submit btn">确定</div> -->
-    <!-- 	  <div class="btn-cancel btn">取消</div> -->
-    <!-- 	</div> -->
-    <!--   </div> -->
-    <!--   <div class="vip-ad"> -->
-    <!-- 	<span><i></i>开通超级会员立享回收站30天保存特权</span> -->
-    <!-- 	<div class="vip-sign-btn"><a href="https://pan.baidu.com/buy/center?tag=8&form=deletefile">立即开通</a></div> -->
-    <!--   </div> -->
-    <!-- </div> -->
-    <!-- </div> -->
 
+    
     <script src="js/jquery.js" charset="GBK"></script>
     <script src="js/bootstrap.min.js" charset="GBK"></script>
     <script src="js/data.js" charset="GBK"></script>

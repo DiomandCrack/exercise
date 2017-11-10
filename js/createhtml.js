@@ -18,7 +18,10 @@ const vari ={
     prompt:document.createElement('div'),
     createNewFile:document.querySelector('.create-folder'),
     fileNum: 0,
-    repeat:1
+    repeat:1,
+    copyTo: document.querySelector('.copy-to'),
+    moveTo: document.querySelector('.move-to'),
+    moveTargetId:0
 };
 
 //生成文件夹节点
@@ -193,8 +196,6 @@ vari.btnRename.addEventListener('click',permitRename);
 	    const {checkedBuffer} = vari;
 	    const length = checkedBuffer.length;
 	    setFileTitle(checkedBuffer,true);
-	}else{
-	    vari.btnRename.removeEventListener('click',permitRename);
 	}
 }
 
@@ -205,6 +206,15 @@ vari.deleteBtn.addEventListener('click',function(e){
 });
 vari.createNewFile.addEventListener('click',function(e){
     createFolder();
+});
+
+//移动文件夹
+vari.moveTo.addEventListener('click',function(e){
+    if(!len){
+	return;
+    }
+
+    
 });
 //重命名
 
@@ -354,7 +364,7 @@ function createPrompt(type){
     const {prompt} =vari; 
     prompt.className = 'prompt show';
     prompt.innerHTML =` 
-          <div class="${type}">
+          <div class="prompt-box ${type}">
       <h4>确认删除</h4>
       <div class="main-prompt">
 	<div>
@@ -438,10 +448,252 @@ function createFolder(){
 	vari.conRow.appendChild(newFile);
     }
     deleteFile(true);
-    	setFileTitle(newFile);
+    setFileTitle(newFile);
 }
+//如果显示文件为空
+function showEmpty(){
+	vari.emptyInfo.classList.toggle('show', !vari.conRow.children.length);
+}
+//从当前容器找到所有子级 包括子级的子级 依此类推
+
+// function findSonsTree(db,id){
+//     let arr = [];
+//     for(let key in db){
+// 	const current = db[key];
+// 	arr.push(current);
+//     }
+//     console.log(arr);
+//     let data = [];
+//     let level = 0;
+//     function cycle(arr,id,level){
+//     	for(var i=0; i<arr.length; i++){
+// 	    const item = arr[i];
+// 	    if(item.pId ==id){
+// 		item.level = level;
+// 		data.push(item);
+// 		cycle(arr,item.id,level+1);
+// 	    }
+// 	}
+//     };
+//     cycle(arr,id,level);
+//     return data;
+// }
+
+// console.log(findSonsTree(dataBase,2));
+//生成菜单节点
+// function createTreeList(db,id){
+//     const menu = document.querySelector('.main-prompt .menu');
+//     menu.style.width = '100%';
+//     const tree = findSonsTree(db,id);
+
+//     let temp = [];
+
+//     for(let i=0; i<tree.length; i++){
+// 	const data = tree[i];
+// 	  let str = `<ul>`;
+  
+//   str += `<li>
+//             <div data-file-id="${data.id}" style="padding-left: ${(data.level)*18}px;">
+//               <i data-file-id="${data.id}" class="icon"></i>
+//               <span data-file-id="${data.id}" class="name">${data.name}</span>
+//             </div>`;
+
+//   if(data.level){
+//       str += createTreeList(db,id);
+//     }
+  
+//     str += `</li></ul>`;
+//     console.log(temp.join(''));
+//     console.log(menu);
+//     menu.innerHTML = str;
+//     }
+// }
+// createTreeList(dataBase,0);
+
+function createTreeList(db, id = 0, currentId){
+  const data = db[id];
+  let floorIndex = getAllParen(db, id).length;
+  let children = getChildrenById(db, id);
+    let  len = children.length;
+
+  let str = `<ul>`;
+  
+  str += `<li>
+            <div data-file-id="${data.id}" class="${currentId === data.id ? 'active' : ''}" style="padding-left: ${(floorIndex-1)*18}px;">
+              <i data-file-id="${data.id}" class="icon"></i>
+              <span data-file-id="${data.id}" class="name">${data.name}</span>
+            </div>`;
+
+  if(len){
+      for(let i=0; i<len; i++){
+    console.log(children[i].id);
+      str += createTreeList(db, children[i].id,currentId);
+    }
+  }
+  
+    return str += `</li></ul>`;
+}
+const menu = document.querySelector('.prompt .menu');
+menu.innerHTML = createTreeList(dataBase,vari.currentId);
 
 
+// function createFileMoveDialog(treeListHtml,text){
+//     const {prompt} =vari; 
+//     prompt.className = 'prompt show';
+//   file.innerHTML = `<div class="prompt show">
+//       <div class="infinity-menu prompt-box">
+// 	<h4>${text}</h4>
+// 	<div class="menu-con main-prompt">
+// 	  <div class="menu">
+// 	    ${treeListHtml}
+// 	  </div>
+// 	</div>
+// 	<div class="btn-group">
+// 	  <div class="create-folder btn-small">
+// 	    <i></i>新建文件夹
+// 	</div>
+// 	<div class="submit btn-small">确定</div>
+// 	<div class="cancel btn-small">取消</div>
+//       </div>
+//     </div>`;
+//   return file;
+// }
+
+// function canMoveData(db, currentId, targetId){
+//   const currentData = db[currentId];
+  
+//   const targetParents = getAllParents(db, targetId);
+  
+//   if(currentData.pId === targetId){
+//     return 2; // 移动到自己所在的目录
+//   }
+  
+//   if(targetParents.indexOf(currentData) !== -1){
+//     return 3;   // 移动到自己的子集
+//   }
+//   if(!nameCanUse(db, targetId, currentData.name)){
+//     return 4; // 名字冲突
+//   }
+  
+//   return 1;
+// }
+
+// function moveDataToTarget(db, currentId, targetId){
+//   db[currentId].pId = targetId;
+// }
+
+// vari.moveTo.addEventListener('click', function (e){
+//   const {checkedBuffer} = vari;
+//   const len = checkedBuffer.length;
+  
+//   if(!len){
+//     return alertMessage('尚未选中文件', 'error');
+//   }
+  
+//   setMoveFileDialog(sureFn, cancelFn);
+  
+//   function sureFn(){
+//     const {conRow} = vari;
+//     const checkedEles = getSelectElement(checkedBuffer);
+    
+//     let canMove = true;
+    
+//     for(let i=0, len=checkedEles.length; i<len; i++){
+//       const {fileId, fileNode} = checkedEles[i];
+//       const ret = canMoveData(db, fileId, vari.moveTargetId);
+//       if(ret === 2){
+//         return alertMessage('已经在当前目录', 'error');
+//         canMove = false;
+//       }
+//       if(ret === 3){
+//         return alertMessage('不能移动到子集', 'error');
+//         canMove = false;
+//       }
+//       if(ret === 4){
+//         return alertMessage('存在同名文件', 'error');
+//         canMove = false;
+//       }
+//     }
+//     if(canMove){
+//       checkedEles.forEach(function(item, i) {
+//         const {fileId, fileNode} = item;
+//         moveDataToTarget(db, fileId, wy.moveTargetId);
+//         fsContainer.removeChild(fileNode.parentNode);
+//       });
+//       initCheckedFiles();
+//       showEmptyInfo();
+//     }
+//   }
+//   function cancelFn(){
+//       alertMessage('取消移动文件', 'normal');
+//   }
+// });
+
+// function setMoveFileDialog(sureFn, cancelFn){
+//   const {fsDialog, currentListId} = vari;
+  
+//   const treeListNode = createFileMoveDialog(createTreeList(db, 0, currentListId));
+  
+//   fsDialog.appendChild(treeListNode);
+  
+//   fsDialog.classList.add('show');
+  
+//   const fileMoveWrap = document.querySelector('.file-move');
+  
+//   fileMoveWrap.style.left = (fileMoveWrap.parentNode.clientWidth - fileMoveWrap.offsetWidth) / 2 + 'px'; 
+//   fileMoveWrap.style.top = (fileMoveWrap.parentNode.clientHeight - fileMoveWrap.offsetHeight) / 2 + 'px'; 
+  
+//   dragEle({
+//     downEle: fsDialog.querySelector('.modal-header'),
+//     moveEle: fsDialog.querySelector('.file-move')
+//   });
+  
+//   const listTreeItems = document.querySelectorAll('#fsListTree div');
+  
+//   let prevActive = currentListId;
+  
+//   for(let i=0, len=listTreeItems.length; i<len; i++){
+//     listTreeItems[i].onclick = function (){
+//       listTreeItems[prevActive].classList.remove('active');
+//       this.classList.add('active');
+//       prevActive = i;
+//       wy.moveTargetId = this.dataset.fileId * 1;
+//     };
+    
+//     listTreeItems[i].firstElementChild.onclick = function (){
+//       const allSiblings = [...this.parentNode.parentNode.children].slice(1);
+      
+//       if(allSiblings.length){
+//         allSiblings.forEach(function(item, i) {
+//           item.style.display = item.style.display === '' ? 'none' : '';
+//         });
+//       }
+//       this.classList.toggle('glyphicon-folder-open');
+//       this.classList.toggle('glyphicon-folder-close');
+//     };
+//   }
+  
+//   const sureBtn = fsDialog.querySelector('.sure');
+//   const cancelBtn = fsDialog.querySelector('.cancel');
+//   const closeBtn = fsDialog.querySelector('.close');
+  
+//   sureBtn.onclick = function (){
+//     sureFn&&sureFn();
+//     closeTreeList();
+//   };
+//   cancelBtn.onclick = closeBtn.onclick = function (e){
+//     cancelFn&&cancelFn();
+//     closeTreeList();
+//   };
+//   closeBtn.onmousedown = function (e){
+//     e.stopPropagation();
+//   };
+  
+//   function closeTreeList(){
+//     fsDialog.classList.remove('show');
+//     fsDialog.innerHTML = '';
+//   }
+// }
 
 
 

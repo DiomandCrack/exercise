@@ -12,7 +12,6 @@ function getChildrenById(db,id){
 	    data.push(item);
 	}
     }
-    console.log(data);
     return data;
 }
 
