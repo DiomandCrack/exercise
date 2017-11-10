@@ -791,13 +791,16 @@ $file-icon-base: 10px;
 	    background: #f7faff;
 	    border-bottom: 1px solid #c4dbfe;
 	    color: #727c90;
-	}
+		}
+		
     }
     .delete-box{
 	height: 15rem;
-
     }
+    
 }
+
+
 .main-prompt{
     padding-top: 3em;
     line-height: 1.75;
@@ -805,7 +808,60 @@ $file-icon-base: 10px;
     height: 13.3333em;
     align-self: center;
     text-align: center;
-    
+    overflow:hidden;
+
+    .menu{
+    text-align: left;
+    background: $control-color;
+    width: 100%;
+    border: 1px solid #e5e0e0;
+    .file {
+        align-self: center;
+	padding-top: 4px;
+	margin-right: 8px;
+        .grey-file {
+            width: 8px;
+            height: 2px;
+            border-radius: 1px 2px 0 0;
+            background: #ecc049;
+        }
+        .main-file {
+            width: 16px;
+            height: 11px;
+            background: #ffd659;
+            border-radius: 0 1px 1px;
+        }
+	&.open{
+	    .main-file{
+		transform: skewX(-5deg);
+	    }
+	}
+    }
+    ul{
+	margin: 0;
+
+	.li-title{
+	    line-height: 2;
+	    border: 1px solid transparent;
+	    display: flex;
+	    margin-top: -1px;
+	    	    &:hover{
+		padding: -1px;
+		border: 1px solid rgba($btn-sub-color,0.4);
+		background: rgba($btn-sub-color,0.2);
+	    }
+	    &.active{
+		padding: -1px;
+		border: 1px solid rgba($btn-sub-color,0.9);
+		background: rgba($btn-sub-color,0.8);
+		&:hover{
+		    		border: 1px solid rgba($btn-sub-color,0.9);
+		background: rgba($btn-sub-color,0.8);
+		}
+	    }
+	}
+    }
+}
     .btn-confirm{
 	margin-top: 1em;
 	width: 100%;
@@ -855,14 +911,15 @@ $file-icon-base: 10px;
     .menu-con{
 	width: 100%;
 	height: 11.875rem;
-	background: #ccc;
 	padding: 0 0.5rem;
 	background-clip: content-box;
+	
     }
     .create-folder {
-	margin-right: 8em;
+	margin-right: 7em;
+	white-space: nowrap;
             i {
-		margin-right: 0.2em;
+		margin-right: 0.1em;
             @include sprite(-40px,
             -160px);
         }
@@ -872,7 +929,7 @@ $file-icon-base: 10px;
         }
 	}
     .btn-small{
-	width: 6.35rem;
+	width: 6.6rem;
 	height: 2.66667em;
 	border: 1px solid $btn-sub-color;
 	color: $btn-main-color;
@@ -888,6 +945,7 @@ $file-icon-base: 10px;
 	    margin: 0 0.3em;
 	}
     }
+    
 }
 
 .btn-group{
@@ -896,3 +954,4 @@ $file-icon-base: 10px;
     align-items: center;
     padding: 0 0.5rem;
 }
+/*--------------------------------------------------------------*/

@@ -1199,12 +1199,12 @@ $file-icon-base: 10px;
   border-bottom: 1px solid #c4dbfe;
   color: #727c90;
 }
-/* line 796, ../sass/partials/_modules.scss */
+/* line 797, ../sass/partials/_modules.scss */
 .prompt .delete-box {
   height: 15rem;
 }
 
-/* line 801, ../sass/partials/_modules.scss */
+/* line 804, ../sass/partials/_modules.scss */
 .main-prompt {
   padding-top: 3em;
   line-height: 1.75;
@@ -1212,15 +1212,75 @@ $file-icon-base: 10px;
   height: 13.3333em;
   align-self: center;
   text-align: center;
+  overflow: hidden;
 }
-/* line 809, ../sass/partials/_modules.scss */
+/* line 813, ../sass/partials/_modules.scss */
+.main-prompt .menu {
+  text-align: left;
+  background: #fff;
+  width: 100%;
+  border: 1px solid #e5e0e0;
+}
+/* line 818, ../sass/partials/_modules.scss */
+.main-prompt .menu .file {
+  align-self: center;
+  padding-top: 4px;
+  margin-right: 8px;
+}
+/* line 822, ../sass/partials/_modules.scss */
+.main-prompt .menu .file .grey-file {
+  width: 8px;
+  height: 2px;
+  border-radius: 1px 2px 0 0;
+  background: #ecc049;
+}
+/* line 828, ../sass/partials/_modules.scss */
+.main-prompt .menu .file .main-file {
+  width: 16px;
+  height: 11px;
+  background: #ffd659;
+  border-radius: 0 1px 1px;
+}
+/* line 835, ../sass/partials/_modules.scss */
+.main-prompt .menu .file.open .main-file {
+  transform: skewX(-5deg);
+}
+/* line 840, ../sass/partials/_modules.scss */
+.main-prompt .menu ul {
+  margin: 0;
+}
+/* line 843, ../sass/partials/_modules.scss */
+.main-prompt .menu ul .li-title {
+  line-height: 2;
+  border: 1px solid transparent;
+  display: flex;
+  margin-top: -1px;
+}
+/* line 848, ../sass/partials/_modules.scss */
+.main-prompt .menu ul .li-title:hover {
+  padding: -1px;
+  border: 1px solid rgba(192, 217, 254, 0.4);
+  background: rgba(192, 217, 254, 0.2);
+}
+/* line 853, ../sass/partials/_modules.scss */
+.main-prompt .menu ul .li-title.active {
+  padding: -1px;
+  border: 1px solid rgba(192, 217, 254, 0.9);
+  background: rgba(192, 217, 254, 0.8);
+}
+/* line 857, ../sass/partials/_modules.scss */
+.main-prompt .menu ul .li-title.active:hover {
+  border: 1px solid rgba(192, 217, 254, 0.9);
+  background: rgba(192, 217, 254, 0.8);
+}
+/* line 865, ../sass/partials/_modules.scss */
 .main-prompt .btn-confirm {
   margin-top: 1em;
   width: 100%;
   display: flex;
   justify-content: center;
 }
-/* line 815, ../sass/partials/_modules.scss */
+/* line 871, ../sass/partials/_modules.scss */
 .main-prompt .btn {
   width: 8em;
   height: 2.66667em;
@@ -1229,19 +1289,19 @@ $file-icon-base: 10px;
   margin: 0.2em;
   border-radius: 4px;
 }
-/* line 822, ../sass/partials/_modules.scss */
+/* line 878, ../sass/partials/_modules.scss */
 .main-prompt .btn.btn-submit {
   background: #3b8cff;
   color: #ffffff;
   border: 1px solid #3b8cff;
 }
-/* line 827, ../sass/partials/_modules.scss */
+/* line 883, ../sass/partials/_modules.scss */
 .main-prompt .btn.btn-cancel {
   border: 1px solid #c0d9fe;
   color: #3b8cff;
 }
 
-/* line 834, ../sass/partials/_modules.scss */
+/* line 890, ../sass/partials/_modules.scss */
 .vip-ad {
   display: flex;
   justify-content: space-between;
@@ -1251,7 +1311,7 @@ $file-icon-base: 10px;
   height: 3em;
 }
 
-/* line 842, ../sass/partials/_modules.scss */
+/* line 898, ../sass/partials/_modules.scss */
 .vip-sign-btn {
   background: #fd6d65;
   margin-top: 0.5em;
@@ -1263,25 +1323,25 @@ $file-icon-base: 10px;
   cursor: pointer;
 }
 
-/* line 853, ../sass/partials/_modules.scss */
+/* line 909, ../sass/partials/_modules.scss */
 .infinity-menu {
   height: 18.125rem;
 }
-/* line 855, ../sass/partials/_modules.scss */
+/* line 911, ../sass/partials/_modules.scss */
 .infinity-menu .menu-con {
   width: 100%;
   height: 11.875rem;
-  background: #ccc;
   padding: 0 0.5rem;
   background-clip: content-box;
 }
-/* line 862, ../sass/partials/_modules.scss */
+/* line 918, ../sass/partials/_modules.scss */
 .infinity-menu .create-folder {
-  margin-right: 8em;
+  margin-right: 7em;
+  white-space: nowrap;
 }
-/* line 864, ../sass/partials/_modules.scss */
+/* line 921, ../sass/partials/_modules.scss */
 .infinity-menu .create-folder i {
-  margin-right: 0.2em;
+  margin-right: 0.1em;
   background: url("../img/sprite.png");
   width: 20px;
   height: 20px;
@@ -1289,7 +1349,7 @@ $file-icon-base: 10px;
   display: inline-block;
   vertical-align: top;
 }
-/* line 869, ../sass/partials/_modules.scss */
+/* line 926, ../sass/partials/_modules.scss */
 .infinity-menu .create-folder:hover i {
   background: url("../img/sprite.png");
   width: 20px;
@@ -1298,9 +1358,9 @@ $file-icon-base: 10px;
   display: inline-block;
   vertical-align: top;
 }
-/* line 874, ../sass/partials/_modules.scss */
+/* line 931, ../sass/partials/_modules.scss */
 .infinity-menu .btn-small {
-  width: 6.35rem;
+  width: 6.6rem;
   height: 2.66667em;
   border: 1px solid #c0d9fe;
   color: #3b8cff;
@@ -1309,17 +1369,17 @@ $file-icon-base: 10px;
   padding: 0.5em;
   text-align: center;
 }
-/* line 883, ../sass/partials/_modules.scss */
+/* line 940, ../sass/partials/_modules.scss */
 .infinity-menu .btn-small.submit {
   background: #3b8cff;
   color: #fff;
 }
-/* line 887, ../sass/partials/_modules.scss */
+/* line 944, ../sass/partials/_modules.scss */
 .infinity-menu .btn-small.submit, .infinity-menu .btn-small.cancel {
   margin: 0 0.3em;
 }
 
-/* line 893, ../sass/partials/_modules.scss */
+/* line 951, ../sass/partials/_modules.scss */
 .btn-group {
   flex-grow: 1;
   display: flex;
@@ -1327,6 +1387,7 @@ $file-icon-base: 10px;
   padding: 0 0.5rem;
 }
 
+/*--------------------------------------------------------------*/
 /* line 28, ../sass/partials/_nav.scss */
 .navbar {
   padding: 1em;

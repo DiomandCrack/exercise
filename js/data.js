@@ -6,5 +6,6 @@ dataBase={
     '4':{id:4, pId:2, name:'流行音乐'},
     '5':{id:5, pId:3, name: '贝多芬'},
     '6':{id:6, pId:5, name: '田园交响曲'},
-    '7':{id:7, pId:6, name: '第三乐章'}
+    '7':{id:7, pId:6, name: '第三乐章'},
+    '8':{id:8, pId:1, name: '音乐'}
 };
