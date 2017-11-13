@@ -151,17 +151,23 @@
                 <!--     </time> -->
                 <!-- </div> -->
 
-		<div class="show-empty">
-		  <div class="empty-con">
-		    <em class="empty-text">您还没上传过文件哦，请<a href="javascript:;">上传</a>选择文件按钮～</em>
-		  </div>
-		  <div class="other-platform">
-		    <span>您还可以下载百度网盘其他客户端</span>
-		  </div>
-		</div>
             </div>
 	    <div class="huge-shade"></div>
-</div>
+	    <div class="show-empty">
+	      <div class="empty-con">
+		<em class="empty-text">您还没上传过文件哦，请<a href="javascript:;">上传</a>文件～</em>
+	      </div>
+	      <div class="other-platform">
+		<span>您还可以下载百度网盘其他客户端</span>
+		<div class="btn-group">
+		  <div class="btn">ipad版下载</div>
+		  <div class="btn">手机版下载</div>
+		  <div class="btn">PC版下载</div>
+		</div>
+	    </div>
+	    </div>
+	</div>
+	
 	<div class="change-skin">
 	  <div class="change-skin-main">
 	    <h2>选择皮肤</h2>
@@ -233,18 +239,30 @@
       </ul>
     </div>
 
-    <div class="none-click-menu">
+    <div class="menu-on-white">
       <ul>
-	<li>查看</li>
-	<li>排序方式</li>
-	<li>刷新</li>
+	<li class="change-list"><span>查看</span><i></i>
+	  <ul class="sub-change-list">
+	    <li>列表</li>
+	    <li>缩略图</li>
+	  </ul>
+	</li>
+	
+	<li class="sort"><span>排序方式</span><i></i>
+	  <ul class="sub-list">
+	    <li>名称</li>
+	    <li>大小</li>
+	    <li>修改日期</li>
+	  </ul>
+	</li>
+	<li class="fresh">刷新</li>
       </ul>
       <ul>
-	<li>重新加载页面</li>
-	<li>新建文件夹</li>
+	<li class="reload"><a href="index.html">重新加载页面</a></li>
+	<li class="creat-new-folder">新建文件夹</li>
       </ul>
       <ul>
-	<li>会员中心</li>
+	<li class="vip"><a href="https://yun.baidu.com/buy">会员中心</a></li>
       </ul>
     </div>
 
@@ -258,5 +276,4 @@
     <script src="js/createhtml.js" charset="GBK"></script>
     <script src="js/tools.js" charset="GBK"></script>
 </body>
-
 </html>

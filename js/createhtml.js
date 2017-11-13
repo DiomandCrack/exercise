@@ -22,7 +22,9 @@ const vari ={
     copyTo: document.querySelector('.copy-to'),
     moveTo: document.querySelector('.move-to'),
     moveTargetId:0,
-    menuOnFile: document.querySelector('.click-menu')
+    menuOnFile: document.querySelector('.click-menu'),
+    menuOnWhite: document.querySelector('.menu-on-white'),
+    emptyInfo: document.querySelector('.show-empty')
 };
 
 //生成文件夹节点
@@ -97,6 +99,8 @@ function openFile(db,currentId){
     createFileList(db,currentId);
     createBreadCrumb(db,currentId);
     menuOnFile(true);
+    menuOnWhite();
+    showEmpty();
 }
 
 //单选
@@ -120,7 +124,7 @@ function showCheckNode(checkNode){
     }
 
     console.log(checkedBuffer);
-    checkAll.classList.toggle('active',checkedBuffer.length===length);
+    checkAll.classList.toggle('active',checkedBuffer.length===length && length);
 };
 
 // 全选按钮节点
@@ -210,6 +214,7 @@ vari.deleteBtn.addEventListener('click',function(e){
 //监听新建按钮
 vari.createNewFile.addEventListener('click',function(e){
     createFolder();
+    showEmpty();
 });
 
 
@@ -273,7 +278,7 @@ function setFileTitle(checkedBuffer,boolean){
 	    vari.conRow.removeChild(vari.conRow.children[0]);
 	    console.log(1);
 	}
-
+	showEmpty();
 	switchName(nameText,nameChange,'show');
     }
     // right.removeEventListener('click',renameRule);
@@ -412,7 +417,6 @@ function deleteFile(newOn){
     };
     submit.onclick = function(){
 	const data= getSelectElement(vari.checkedBuffer);
-	console.log(data);
 	data.forEach(function(item){
 	    let file = item.fileNode;
 	    item.fileNode.classList.remove('active');
@@ -427,6 +431,7 @@ function deleteFile(newOn){
 	}
 	prompt.classList.remove('show');
 	prompt.innerHTML = '';
+	showEmpty();
     };
 }
 
@@ -449,7 +454,6 @@ function createFolder(){
 }
 //如果显示文件为空
 function showEmpty(){
-    vari.checkAll.classList.toggle('active',!vari.conRow.children.length);
     vari.emptyInfo.classList.toggle('show', !vari.conRow.children.length);
 }
 //从当前容器找到所有子级 包括子级的子级 // function findSonsTree(db,id){
@@ -620,7 +624,8 @@ function moveToTargetFile(e){
 		moveToTarget(dataBase, fileId, vari.moveTargetId);
 		vari.conRow.removeChild(fileNode);
 	    });
-	    // showEmpty();
+	    showEmpty();
+	    initFresh();
 	}
     }
     function cancelFn(){
@@ -643,9 +648,11 @@ function setMoveFileDialog(sureFn, cancelFn){
     const len=listTreeItems.length;  
     for(let i=0; i<len; i++){
 	listTreeItems[i].onclick = function (){
-	    listTreeItems[prevActive].classList.remove('active');
-
-	    prevActive = i;
+	    // listTreeItems[prevActive].classList.remove('active');
+	    // prevActive = i;
+	    [...listTreeItems].forEach(function(item){
+		item.classList.remove('active');
+	    });
 	    this.classList.add('active');
 	    console.log(this.dataset.fileId);
 	    vari.moveTargetId = this.dataset.fileId * 1;
@@ -817,7 +824,7 @@ function mouseDraw(ban){
 
 	    vari.btnRename.classList.toggle('disable',vari.checkedBuffer.length !==1);
 
-	    if(vari.checkedBuffer.length == children.length){
+	    if(vari.checkedBuffer.length ===  children.length && children.length){
 		vari.checkAll.classList.add('active');
 	    }else{
 		vari.checkAll.classList.remove('active');
@@ -839,12 +846,11 @@ function mouseDraw(ban){
 //右键菜单
 
 function menuOnFile(onFile){
-    let menu;
-    if(onFile){
-	menu = vari.menuOnFile;
+	const menu = vari.menuOnFile;
 	[...vari.conRow.children].forEach(function(item){
 
 	    item.addEventListener('contextmenu',function(e){
+		e.stopPropagation();
 		e.preventDefault();
 		initFresh();
 		item.classList.add('active');
@@ -852,6 +858,8 @@ function menuOnFile(onFile){
 		vari.checkedBuffer.length=1;
 		// item.children[0].dataset
 		showSubNav();
+		vari.menuOnWhite.style.display = 'none';
+		vari.menuOnWhite.style.transform = 'scale(0)';
 		menu.fileId = item.fileId;
 		console.log(menu.fileId);
 		let x = e.pageX;
@@ -860,6 +868,7 @@ function menuOnFile(onFile){
 		menu.style.transform='scale(1)';
 		if(window.innerWidth-x<menu.offsetWidth){
 		    x= window.innerWidth - menu.offsetWidth;
+		    
 		}
 
 		if(x < vari.container.offsetLeft){
@@ -877,10 +886,6 @@ function menuOnFile(onFile){
 
 	    contextMenuFunction(onFile);
 	});
-    }else{
-
-    }
-
     document.addEventListener('click',function(e){
 	menu.style.display='none';
 	menu.style.transform = 'scale(0)';
@@ -912,6 +917,60 @@ function contextMenuFunction(onFile){
 	    deleteFile();
 	};
     }else{
+	menu = vari.menuOnWhite;
+	const newFolder = menu.querySelector('.creat-new-folder');
+	const fresh = menu.querySelector('.fresh');
+	const sort = menu.querySelector('.sort');
+	const change = menu.querySelector('.change-list');
 
+	fresh.onclick = function(){
+	    initFresh();
+	};
+	
     }
+}
+//在空白处的菜单
+function menuOnWhite(){
+    const menu = vari.menuOnWhite;
+    const sort = menu.querySelector('.sub-list');
+    const change = menu.querySelector('.sub-change-list');
+    vari.container.addEventListener('contextmenu',function(e){
+	console.log(e.target.fileId);
+	e.preventDefault();
+	initFresh();
+	let x = e.pageX;
+	let y = e.pageY;
+	menu.style.display='flex';
+	menu.style.transform='scale(1)';
+	if(e.target.fileId){
+	    vari.menuOnWhite.style.display = 'none';
+	    vari.menuOnWhite.style.transform = 'scale(0)';
+	}else{
+	    vari.menuOnFile.style.display = 'none';
+	    vari.menuOnFile.style.transform = 'scale(0)';
+	    if(window.innerWidth-x<menu.offsetWidth){
+		x= window.innerWidth - menu.offsetWidth;
+		change.style.left = '-5.15rem';
+		sort.style.left ='-5.15rem';
+	    }else{
+		change.style.left = '';
+		sort.style.left ='';
+	    }
+
+	    if(x < vari.container.offsetLeft){
+		x = vari.container.offsetLeft;
+	    }
+
+	    if(window.innerHeight-y<menu.offsetHeight){
+		y = window.innerHeight - menu.offsetHeight;
+	    }
+
+	    menu.style.left = x + 'px';
+	    menu.style.top = y + 'px';
+	}
+    });
+        document.addEventListener('click',function(e){
+	menu.style.display='none';
+	menu.style.transform = 'scale(0)';
+    });
 }
