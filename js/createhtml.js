@@ -21,7 +21,8 @@ const vari ={
     repeat:1,
     copyTo: document.querySelector('.copy-to'),
     moveTo: document.querySelector('.move-to'),
-    moveTargetId:0
+    moveTargetId:0,
+    menuOnFile: document.querySelector('.click-menu')
 };
 
 //生成文件夹节点
@@ -91,15 +92,18 @@ openFile(dataBase,vari.currentId);
 
 //将生成文件夹和导航绑定在一起
 function openFile(db,currentId){
+    vari.menuOnFile.style.transform = 'scale(0)';
+        vari.menuOnFile.style.display = 'none';
     createFileList(db,currentId);
     createBreadCrumb(db,currentId);
-    
+    menuOnFile();
 }
 
 //单选
 function showCheckNode(checkNode){
     const allFiles  = vari.conRow.children;
-    const targetParent = checkNode.parentNode.parentNode; //点击的元素的父级的父级 能改变文件夹激活样式的容器
+    let targetParent;
+    targetParent = checkNode.parentNode.parentNode;//点击的元素的父级的父级 能改变文件夹激活样式的容器
     const length = [...allFiles].length;
     const {fileId} = targetParent; //targetParent.fileId = fileId;
     const checked = targetParent.classList.toggle('active'); // 
@@ -559,6 +563,7 @@ function moveToTarget(db,currentId, targetId){
 }
 
 vari.moveTo.addEventListener('click', function (e){
+    mouseDraw(false);
     setMoveFileDialog(sureFn, cancelFn);
     const {checkedBuffer} = vari;
     const data = getSelectElement(checkedBuffer);
@@ -626,7 +631,7 @@ vari.moveTo.addEventListener('click', function (e){
 });
 
 function setMoveFileDialog(sureFn, cancelFn){
-  const {fsDialog, currentId} = vari;  
+  const {currentId} = vari;  
   const fileMoveWrap = document.querySelector('.file-move');
     const treeListNode = createFileMoveDialog(createTreeList(dataBase, 0, vari.currentId),'移动到');
     vari.body.insertBefore(treeListNode,vari.alertBox);
@@ -637,13 +642,14 @@ function setMoveFileDialog(sureFn, cancelFn){
   
 
     const listTreeItems = document.querySelectorAll('.prompt .li-title');
-    let prevActive = listTreeItems[currentId];
+    let prevActive = currentId;
     const len=listTreeItems.length;  
   for(let i=0; i<len; i++){
     listTreeItems[i].onclick = function (){
-      prevActive.classList.remove('active');
+      listTreeItems[prevActive].classList.remove('active');
+
+	prevActive = i;
 	this.classList.add('active');
-	prevActive = this;
 	// console.log(this.dataset.fileId);
 	vari.moveTargetId = this.dataset.fileId * 1;
     };
@@ -664,22 +670,204 @@ function setMoveFileDialog(sureFn, cancelFn){
   // const closeBtn = fsDialog.querySelector('.close');
   
     submitBtn.onclick = function (){
-	closeTreeList();
 	setTimeout(sureFn,200);
-
+	closeTreeList();
 
   };
   cancelBtn.onclick = function (e){
     closeTreeList();
   };
       function closeTreeList(){
-    vari.prompt.classList.remove('show');
-    vari.prompt.innerHTML = '';
+	  vari.prompt.classList.remove('show');
+	  vari.prompt.innerHTML = '';
+	  initFresh();
   }
   // closeBtn.onmousedown = function (e){
   //   e.stopPropagation();
   // };
 }
 
+function initFresh(){
+    vari.checkedBuffer = {length: 0};
+    vari.checkAll.classList.remove('active');
+    vari.fileNum=0;
+    const fileChildren = vari.conRow.children;
+    [...fileChildren].forEach(function(item){
+	item.classList.remove('active');
+    });
+    	vari.offlineDownload.style.display='block';
+	vari.subNav.style.display = 'none';
+}
+
+//鼠标画框
+//     vari.container.addEventListener('mousedown',function(e){
+	mouseDraw(true);
+//     });
+
+// function mouseDraw(e){
+//     const children = vari.conRow.children;
 
 
+// 	initFresh();
+// 	e.preventDefault();
+
+// 	if(e.target.classList.contains('item')){
+// 	    return;
+// 	}
+
+// 	const frame = document.createElement('div');
+
+// 	frame.className = 'frame';
+
+// 	vari.body.insertBefore(frame,vari.alertBox);
+
+// 	const startX = e.pageX;
+// 	const startY = e.pageY;
+	
+// 	function frameMove(e){
+// 	    let x = e.pageX;
+// 	    let y = e.pageY;
+
+// 	    let l = Math.min(x,startX);
+// 	    let t = Math.min(y,startY);
+// 	    let w = Math.abs(x - startX);
+// 	    let h = Math.abs(y - startY);
+	    
+// 	    for(let i=0; i<children.length; i++){
+// 		if(duang(frame,children[i])){
+// 		    children[i].classList.add('active');
+// 		    vari.checkedBuffer[children[i].fileId] = children[i];
+// 		    vari.checkedBuffer.length =getSelectElement(vari.checkedBuffer).length ;
+// 		    if(vari.checkedBuffer.length>=1){
+// 			vari.offlineDownload.style.display ='none';
+// 			vari.subNav.style.display = 'flex';
+// 		    }else{
+// 			vari.offlineDownload.style.display='block';
+// 			vari.subNav.style.display = 'none';
+
+// 		    }
+// 		    console.log(vari.checkedBuffer);
+// 		}else{
+// 		    children[i].classList.remove('active');
+// 		}
+// 	    }
+	    
+// 	    vari.btnRename.classList.toggle('disable',length !==1);
+	    
+// 	    if(vari.checkedBuffer.length == children.length){
+// 		vari.checkAll.classList.add('active');
+// 	    }else{
+// 		vari.checkAll.classList.remove('active');
+// 	    }
+	    
+// 	    frame.style.left = l + 'px';
+// 	    frame.style.top = t +'px';
+// 	    frame.style.width = w + 'px';
+// 	    frame.style.height = h + 'px';
+// 	}
+
+// 	vari.container.addEventListener('mousemove',frameMove);
+// 	vari.body.addEventListener('mouseup', cancelFrame);
+
+// 	console.log(frame.parentNode);
+// 	function cancelFrame(e){
+// 	    frame.style.transform = 'scale(0)';
+// 	    vari.container.removeEventListener('mousemove',frameMove);
+// 	    vari.container.removeEventListener('mouseup',cancelFrame);
+// 	}
+    
+// 	// console.log(children[0].fileId);
+// }
+
+function mouseDraw(ban){
+
+     const children = vari.conRow.children;
+    vari.body.onmousedown = function (e){
+	e.preventDefault();
+	if(e.target.classList.contains('col-1') || e.target.classList.contains('nav-bar')||e.target.classList.contains('check-all') ||e.target.classList.contains('count-load-file')){
+	    return;
+	}
+	const frame = document.createElement('div');
+	frame.className = 'frame';
+	document.body.appendChild(frame);
+	const startX = e.pageX;
+	const startY = e.pageY;
+	document.onmousemove = function (e){
+            let x = e.pageX, y = e.pageY;
+	    
+                 const l = Math.min(x, startX);
+	    const t = Math.min(y, startY);
+        const w = Math.abs(x - startX);
+        const h = Math.abs(y - startY);
+        for(var i=0; i<children.length; i++){
+            if(duang(frame, children[i])){
+		children[i].classList.add('active');
+		    vari.checkedBuffer[children[i].fileId] = children[i];
+		vari.checkedBuffer.length =getSelectElement(vari.checkedBuffer).length ;
+		if(vari.checkedBuffer.length>=1){
+			vari.offlineDownload.style.display ='none';
+			vari.subNav.style.display = 'flex';
+		    }else{
+			vari.offlineDownload.style.display='block';
+			vari.subNav.style.display = 'none';
+
+		    }
+
+            }
+        }
+        
+	    vari.btnRename.classList.toggle('disable',vari.checkedBuffer.length !==1);
+	    
+	    if(vari.checkedBuffer.length == children.length){
+		vari.checkAll.classList.add('active');
+	    }else{
+		vari.checkAll.classList.remove('active');
+	    }
+        frame.style.left = l + 'px';
+        frame.style.top = t + 'px';
+        frame.style.width = w + 'px';
+        frame.style.height = h + 'px';
+	};
+      document.onmouseup = function (e){
+        document.body.removeChild(frame);
+        this.onsmoueup = this.onsmouemove = null;
+      };
+
+    };
+}
+
+
+//右键菜单
+
+function menuOnFile(){
+    const menu = document.querySelector('.click-menu');
+    [...vari.conRow.children].forEach(function(item){
+	item.addEventListener('contextmenu',function(e){
+	    e.preventDefault();
+	    let x = e.pageX;
+	    let y = e.pageY;
+	    menu.style.display='flex';
+	    menu.style.transform='scale(1)';
+	    if(window.innerWidth-x<menu.offsetWidth){
+		x= window.innerWidth - menu.offsetWidth;
+	    }
+
+	    if(x < vari.container.offsetLeft){
+		x = vari.container.offsetLeft;
+	    }
+	    
+	    if(window.innerHeight-y<menu.offsetHeight){
+		y = window.innerHeight - menu.offsetHeight;
+	    }
+
+	    menu.style.left = x + 'px';
+	    menu.style.top = y + 'px';
+	    
+	});
+    });
+
+    document.addEventListener('click',function(e){
+	menu.style.display='none';
+    	    menu.style.transform = 'scale(0)';
+    });
+}

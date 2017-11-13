@@ -955,3 +955,46 @@ $file-icon-base: 10px;
     padding: 0 0.5rem;
 }
 /*--------------------------------------------------------------*/
+
+/*------------------------------mouse-draw---------------------------------*/
+
+.frame{
+    position: absolute;
+    left:-99px;
+    top: -99px;
+    width: 0px;
+    height: 0px;
+    border: 1px dotted rgba(75, 154, 236, 1);
+    background-color: rgba(75, 154, 236, 0.6);	     
+}
+
+/*---------------------------------right-click-menu---------------------------------*/
+
+.click-menu{
+    position: absolute;
+    display: flex;
+    flex-flow: column nowrap;
+    border: 1px solid #dde0e4;
+    font-size: 0.75rem;
+    line-height: 1.75;
+    width: 8.6667em;
+    background: #fff;
+    border-radius: 6px;
+    color: #5b667b;
+    box-shadow: 0 0 1px 2px rgba(0,0,0,0.1);
+    transform: scale(0);
+    transform-origin: 0 0;
+    transition: 0.2s;
+    display: none;
+    ul{
+	margin: 0px;
+	border: 1px solid #e9e9e9;
+	padding: 3px;
+	li{
+	    padding-left: 1.5em;
+	    &:hover{
+		background: $btn-main-color;
+		}
+	}
+    }
+}

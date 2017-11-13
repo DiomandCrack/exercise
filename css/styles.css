@@ -1388,6 +1388,52 @@ $file-icon-base: 10px;
 }
 
 /*--------------------------------------------------------------*/
+/*------------------------------mouse-draw---------------------------------*/
+/* line 961, ../sass/partials/_modules.scss */
+.frame {
+  position: absolute;
+  left: -99px;
+  top: -99px;
+  width: 0px;
+  height: 0px;
+  border: 1px dotted #4b9aec;
+  background-color: rgba(75, 154, 236, 0.6);
+}
+
+/*---------------------------------right-click-menu---------------------------------*/
+/* line 973, ../sass/partials/_modules.scss */
+.click-menu {
+  position: absolute;
+  display: flex;
+  flex-flow: column nowrap;
+  border: 1px solid #dde0e4;
+  font-size: 0.75rem;
+  line-height: 1.75;
+  width: 8.6667em;
+  background: #fff;
+  border-radius: 6px;
+  color: #5b667b;
+  box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.1);
+  transform: scale(0);
+  transform-origin: 0 0;
+  transition: 0.2s;
+  display: none;
+}
+/* line 989, ../sass/partials/_modules.scss */
+.click-menu ul {
+  margin: 0px;
+  border: 1px solid #e9e9e9;
+  padding: 3px;
+}
+/* line 993, ../sass/partials/_modules.scss */
+.click-menu ul li {
+  padding-left: 1.5em;
+}
+/* line 995, ../sass/partials/_modules.scss */
+.click-menu ul li:hover {
+  background: #3b8cff;
+}
+
 /* line 28, ../sass/partials/_nav.scss */
 .navbar {
   padding: 1em;
