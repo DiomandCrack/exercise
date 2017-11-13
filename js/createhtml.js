@@ -27,29 +27,29 @@ const vari ={
 
 //生成文件夹节点
 function createFileNode(fileData){
-	let file = document.createElement('div');
-	file.className = 'col-1';
-	 file.innerHTML =`<div class="file-con" data-p-id="${fileData.pId}" data-name="${fileData.name}">
-                       <i class="fa fa-check true file-true"  aria-hidden="true"></i>
-                        <div class="file">
-                            <div class="grey-file"></div>
-                            <div class="main-file"></div>
-                        </div>
-                        <div class="file-title show">${fileData.name}</div>
-                        <div class="rename">
-                            <input name="" type="text" value="${fileData.name}"/>
-                       <i class="fa fa-check yes"  aria-hidden="true"></i>
+    let file = document.createElement('div');
+    file.className = 'col-1';
+    file.innerHTML =`<div class="file-con" data-p-id="${fileData.pId}" data-name="${fileData.name}">
+		      <i class="fa fa-check true file-true"  aria-hidden="true"></i>
+		       <div class="file">
+			   <div class="grey-file"></div>
+			   <div class="main-file"></div>
+		       </div>
+		       <div class="file-title show">${fileData.name}</div>
+		       <div class="rename">
+			   <input name="" type="text" value="${fileData.name}"/>
+		      <i class="fa fa-check yes"  aria-hidden="true"></i>
 <i class="fa fa-times no" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                    `;
+		       </div>
+		   </div>
+		   `;
 
-    
+
     let fileItems = file.querySelectorAll('div');
     //把数据中的id赋值给文件夹的每一个组成部分
-	for(let i=0; i<fileItems.length; i++){
-	    fileItems[i].fileId = fileData.id;
-	}
+    for(let i=0; i<fileItems.length; i++){
+	fileItems[i].fileId = fileData.id;
+    }
     file.fileId = fileData.id;
 
     return file;//返回整个文件夹节点
@@ -85,7 +85,7 @@ function createBreadCrumb(db,id){
     data.forEach(function(item,i){
 	vari.breadCrumbNav.appendChild(createBreadCrumbNode(item));
     });
-    
+
 }
 
 openFile(dataBase,vari.currentId);
@@ -93,10 +93,10 @@ openFile(dataBase,vari.currentId);
 //将生成文件夹和导航绑定在一起
 function openFile(db,currentId){
     vari.menuOnFile.style.transform = 'scale(0)';
-        vari.menuOnFile.style.display = 'none';
+    vari.menuOnFile.style.display = 'none';
     createFileList(db,currentId);
     createBreadCrumb(db,currentId);
-    menuOnFile();
+    menuOnFile(true);
 }
 
 //单选
@@ -109,7 +109,7 @@ function showCheckNode(checkNode){
     const checked = targetParent.classList.toggle('active'); // 
 
     const{checkedBuffer,checkAll,conRow} = vari;
-    
+
     if(checked){
 	checkedBuffer[fileId] = targetParent;
 	checkedBuffer.length++;
@@ -118,7 +118,7 @@ function showCheckNode(checkNode){
 	delete checkedBuffer[fileId];
 	checkedBuffer.length--;
     }
-    
+
     console.log(checkedBuffer);
     checkAll.classList.toggle('active',checkedBuffer.length===length);
 };
@@ -127,14 +127,14 @@ function showCheckNode(checkNode){
 function checkAllNode(single){
     const {childrenAll,checkAll,checkedBuffer} = vari;
     const allFiles = vari.conRow.children;
-    
+
     single.classList.toggle('active');
-    
+
     if(single.classList.contains('active')){
 	vari.checkedBuffer = {length:0};
-	
+
 	vari.checkedBuffer.length = childrenAll.length;
-	
+
 	[...allFiles].forEach(function (item){
 	    item.classList.add('active');
 	    vari.checkedBuffer[item.fileId] = item;
@@ -144,17 +144,16 @@ function checkAllNode(single){
 	showSubNav();
     }else{
 	vari.checkedBuffer = {length:0};
-		[...allFiles].forEach(function (item){
+	[...allFiles].forEach(function (item){
 	    item.classList.remove('active');
-		});
+	});
 	showSubNav();
     }
 }
 
 //显示副控制按钮
 function showSubNav(){
-    const {checkedBuffer} = vari;
-    const length = checkedBuffer.length;
+    const length = vari.checkedBuffer.length;
     if(length>=1){
 	vari.offlineDownload.style.display ='none';
 	vari.subNav.style.display = 'flex';
@@ -164,7 +163,7 @@ function showSubNav(){
     }
 
     vari.btnRename.classList.toggle('disable',length !==1);
-    }
+}
 
 //添加事件
 vari.container.addEventListener('click',function(e){
@@ -182,7 +181,7 @@ vari.container.addEventListener('click',function(e){
     }
 
     // console.log(vari.checkedBuffer);
-    
+
 });
 
 vari.breadCrumbNav.addEventListener('click',function(e){
@@ -195,19 +194,20 @@ vari.breadCrumbNav.addEventListener('click',function(e){
 vari.btnRename.addEventListener('click',permitRename);
 
 
-    function permitRename(){
-	if(vari.checkedBuffer.length===1){
-	    const {checkedBuffer} = vari;
-	    const length = checkedBuffer.length;
-	    setFileTitle(checkedBuffer,true);
-	}
+function permitRename(){
+    if(vari.checkedBuffer.length===1){
+	const {checkedBuffer} = vari;
+	const length = checkedBuffer.length;
+	setFileTitle(checkedBuffer,true);
+    }
 }
-
+//监听删除按钮
 vari.deleteBtn.addEventListener('click',function(e){
     let target = e.target;
     vari.body.insertBefore(createPrompt('delete-box'),vari.alertBox);
     deleteFile();
 });
+//监听新建按钮
 vari.createNewFile.addEventListener('click',function(e){
     createFolder();
 });
@@ -222,7 +222,7 @@ function setFileTitle(checkedBuffer,boolean){
 	fileId = checkedEle.fileId;
 	fileNode = checkedEle.fileNode;
     }else{
-	 fileNode = checkedBuffer;
+	fileNode = checkedBuffer;
     }
 
     const nameText = fileNode.querySelector('.file-title');
@@ -232,7 +232,7 @@ function setFileTitle(checkedBuffer,boolean){
     const right = nameChange.querySelector('.yes');
     const wrong = nameChange.querySelector('.no');
     switchName(nameChange,nameText,'show');
-    
+
     nameInput.vaule = nameText.innerHTML;
     console.log(nameInput.vaule,nameInput);
     const initName = nameText.innerHTML;
@@ -249,14 +249,14 @@ function setFileTitle(checkedBuffer,boolean){
 	    return alertMessage('文件(夹)名称不能为空，请输入文件名称','error');
 	}
 	console.log(nameInput);
-	
-	 if(newName === initName && boolean){   return switchName(nameText,nameChange,'show');}
+
+	if(newName === initName && boolean){   return switchName(nameText,nameChange,'show');}
 	if(!nameConflict(dataBase,vari.currentId,newName)){
 	    console.log(1);
 	    nameText.innerHTML = nameInput.value = nameInput.value  + `(${vari.repeat})`;
 	    vari.repeat++;
 	    createNewFolder(boolean);
-	    
+
 	    return switchName(nameText,nameChange,'show');
 	}
 
@@ -266,12 +266,12 @@ function setFileTitle(checkedBuffer,boolean){
 
 	switchName(nameText,nameChange,'show');
     }
-//关闭按钮规则函数
+    //关闭按钮规则函数
     function toggleWrong(){
 	shade.style.transform = '';
 	if(!boolean){
 	    vari.conRow.removeChild(vari.conRow.children[0]);
-	    	console.log(1);
+	    console.log(1);
 	}
 
 	switchName(nameText,nameChange,'show');
@@ -290,22 +290,22 @@ function setFileTitle(checkedBuffer,boolean){
 
 //重命名共用函数
 function createNewFolder(boolean){
-		if(!boolean){
-		    const newData =vari.conRow.children[0];
-		    const name = newData.querySelector('.file-title');
-		    console.log();
-		    dataBase[newData.fileId.toString()] = {
-			id: newData.fileId,
-			pId: vari.currentId,
-			name: name.innerHTML
-		    };
-		    vari.fileNum = vari.fileNum+1;
-		}
-    	if(boolean){
-	    alertMessage('修改名字成功','success');
-	}else{
-	    alertMessage('创建文件成功','success');
-	}
+    if(!boolean){
+	const newData =vari.conRow.children[0];
+	const name = newData.querySelector('.file-title');
+	console.log();
+	dataBase[newData.fileId.toString()] = {
+	    id: newData.fileId,
+	    pId: vari.currentId,
+	    name: name.innerHTML
+	};
+	vari.fileNum = vari.fileNum+1;
+    }
+    if(boolean){
+	alertMessage('修改名字成功','success');
+    }else{
+	alertMessage('创建文件成功','success');
+    }
 }
 //input和title切换显示隐藏函数
 function switchName(show,hidden,classType){
@@ -337,22 +337,22 @@ function alertMessage(text,type){
     animation({
 	el:vari.alertBox,
 	attrs:{
-	    top: 100
+	    top: 75
 	},
 	cb(){
 	    alertMessage.timer =setTimeout(function(){
-	    animation({
-	el:vari.alertBox,
-	attrs:{
-	    top: -50
-	},
-		cb(){
-		    vari.alertBox.innerHTML ='';
-		vari.alertBox.classList.remove(type);
-		}
-	    });
-	},2000);
-	    }
+		animation({
+		    el:vari.alertBox,
+		    attrs:{
+			top: -50
+		    },
+		    cb(){
+			vari.alertBox.innerHTML ='';
+			vari.alertBox.classList.remove(type);
+		    }
+		});
+	    },1000);
+	}
     });
 }
 //删除按钮
@@ -361,26 +361,26 @@ function createPrompt(type){
     const {prompt} =vari; 
     prompt.className = 'prompt show';
     prompt.innerHTML =` 
-          <div class="prompt-box ${type}">
-      <h4>确认删除</h4>
-      <div class="main-prompt">
-	<div>
-	  	  确认要把所选文件放入回收站吗？
-	</div>
-	<div>
-	  删除文件可在10天内通过回收站还原
-	</div>
-	<div class="btn-confirm">
-	  <div class="btn-submit btn">确定</div>
-	  <div class="btn-cancel btn">取消</div>
-	</div>
-      </div>
-      <div class="vip-ad">
-	<span><i></i>开通超级会员立享回收站30天保存特权</span>
-	<div class="vip-sign-btn"><a href="https://pan.baidu.com/buy/center?tag=8&form=deletefile">立即开通</a></div>
-      </div>
-    </div>
-    `;
+	 <div class="prompt-box ${type}">
+     <h4>确认删除</h4>
+     <div class="main-prompt">
+       <div>
+		 确认要把所选文件放入回收站吗？
+       </div>
+       <div>
+	 删除文件可在10天内通过回收站还原
+       </div>
+       <div class="btn-confirm">
+	 <div class="btn-submit btn">确定</div>
+	 <div class="btn-cancel btn">取消</div>
+       </div>
+     </div>
+     <div class="vip-ad">
+       <span><i></i>开通超级会员立享回收站30天保存特权</span>
+       <div class="vip-sign-btn"><a href="https://pan.baidu.com/buy/center?tag=8&form=deletefile">立即开通</a></div>
+     </div>
+   </div>
+   `;
     return prompt;
 }
 function deleteFile(newOn){
@@ -392,7 +392,7 @@ function deleteFile(newOn){
     // if(target.classList.contains('btn-cancel')){
     // 	console.log('pro');
     // 	prompt.children.classList.remove('delete-box');
-	
+
     // }
     if(newOn){//如果是新建文件
 	const data= getSelectElement(vari.checkedBuffer);
@@ -402,7 +402,7 @@ function deleteFile(newOn){
 	    vari.checkedBuffer = {length:0};
 	});
 	if(vari.checkAll.classList.contains('active')){
-	     vari.checkAll.classList.remove('active');
+	    vari.checkAll.classList.remove('active');
 	}
 	return;
     }
@@ -415,7 +415,7 @@ function deleteFile(newOn){
 	console.log(data);
 	data.forEach(function(item){
 	    let file = item.fileNode;
-	    	    item.fileNode.classList.remove('active');
+	    item.fileNode.classList.remove('active');
 	    file.parentNode.removeChild(file);
 	    vari.checkedBuffer = {length:0};
 	    deleteDataById(dataBase,item.fileId);
@@ -423,7 +423,7 @@ function deleteFile(newOn){
 	    // console.log(checkedBuffer);
 	});
 	if(vari.checkAll.classList.contains('active')){
-	     vari.checkAll.classList.remove('active');
+	    vari.checkAll.classList.remove('active');
 	}
 	prompt.classList.remove('show');
 	prompt.innerHTML = '';
@@ -432,9 +432,9 @@ function deleteFile(newOn){
 
 //新建文件夹
 function createFolder(){
-        let newFolder = {
-	    id: Date.now(),
-	    name: '新建文件夹'};
+    let newFolder = {
+	id: Date.now(),
+	name: '新建文件夹'};
     const newFile = createFileNode(newFolder);
 
     const newData =vari.conRow.children[0];
@@ -449,11 +449,10 @@ function createFolder(){
 }
 //如果显示文件为空
 function showEmpty(){
-	vari.emptyInfo.classList.toggle('show', !vari.conRow.children.length);
+    vari.checkAll.classList.toggle('active',!vari.conRow.children.length);
+    vari.emptyInfo.classList.toggle('show', !vari.conRow.children.length);
 }
-//从当前容器找到所有子级 包括子级的子级 依此类推
-
-// function findSonsTree(db,id){
+//从当前容器找到所有子级 包括子级的子级 // function findSonsTree(db,id){
 //     let arr = [];
 //     for(let key in db){
 // 	const current = db[key];
@@ -476,51 +475,51 @@ function showEmpty(){
 //     return data;
 // }
 function createTreeList(db, id = 0, currentId){
-  const data = db[id];
-  let floorIndex = getAllParen(db, id).length;
-  let children = getChildrenById(db, id);
+    const data = db[id];
+    let floorIndex = getAllParen(db, id).length;
+    let children = getChildrenById(db, id);
     let  len = children.length;
 
-  let str = `<ul>`;
-  
-  str += `<li>
-            <div data-file-id="${data.id}" class="${currentId === data.id ? 'active' : ''} li-title" style="padding-left: ${(floorIndex)*10}px;">
-              <i data-file-id="${data.id}" class="file open">
-                            <div class="grey-file"></div>
-                            <div class="main-file"></div>
-                        </i>
-              <span data-file-id="${data.id}" class="name">${data.name}</span>
-            </div>`;
+    let str = `<ul>`;
 
-  if(len){
-      for(let i=0; i<len; i++){
-    // console.log(children[i].id);
-      str += createTreeList(db, children[i].id,currentId);
+    str += `<li>
+	  <div data-file-id="${data.id}" class="${currentId === data.id ? 'active' : ''} li-title" style="padding-left: ${(floorIndex)*10}px;">
+	    <i data-file-id="${data.id}" class="file open">
+			  <div class="grey-file"></div>
+			  <div class="main-file"></div>
+		      </i>
+	    <span data-file-id="${data.id}" class="name">${data.name}</span>
+	  </div>`;
+
+    if(len){
+	for(let i=0; i<len; i++){
+	    // console.log(children[i].id);
+	    str += createTreeList(db, children[i].id,currentId);
+	}
     }
-  }
-  
+
     return str += `</li></ul>`;
 }
 
 function createFileMoveDialog(treeListHtml,text){
     const {prompt} =vari; 
     prompt.className = 'prompt show';
-	prompt.innerHTML = `
-      <div class="infinity-menu prompt-box">
-	<h4>${text}</h4>
-	<div class="menu-con main-prompt">
-	  <div class="menu">
-	    ${treeListHtml}
-	  </div>
+    prompt.innerHTML = `
+    <div class="infinity-menu prompt-box">
+      <h4>${text}</h4>
+      <div class="menu-con main-prompt">
+	<div class="menu">
+	  ${treeListHtml}
 	</div>
-	<div class="btn-group">
-	  <div class="create-folder btn-small">
-	    <i></i><span>新建文件夹</span>
-	</div>
-	<div class="submit btn-small">确定</div>
-	<div class="cancel btn-small">取消</div>
-      </div>`;
-  return prompt;
+      </div>
+      <div class="btn-group">
+	<div class="create-folder btn-small">
+	  <i></i><span>新建文件夹</span>
+      </div>
+      <div class="submit btn-small">确定</div>
+      <div class="cancel btn-small">取消</div>
+    </div>`;
+    return prompt;
 }
 
 
@@ -531,160 +530,160 @@ function createFileMoveDialog(treeListHtml,text){
 //     const intoSelf = data.every(function(item){
 // 	return item.pId === targetId;
 //    });
-    
+
 //     if(intoSelf){
 //     return -1; // 移动到自己所在的目录
 //     }
-    
+
 //    const intoParent = data.every(function(item){
 // 	return targetParents.indexOf(item) !== -1;
 //    });
-    
+
 //     if(intoParent){
 //     return -2;   // 移动到自己的子集
 //     }
-    
+
 //     const nameRepeat = data.every(function(item){
 // 	return nameConflict(db,targetId,item.name);
 //     });
-    
+
 //     if(!nameRepeat){
 //     return -3; // 名字冲突
 //     }
-    
+
 //     return 1;  
 // }
 function moveToTarget(db,currentId, targetId){
-      const {checkedBuffer} = vari;
-      const data = getSelectElement(checkedBuffer);
+    const data = getSelectElement(vari.checkedBuffer);
+    console.log(vari.checkedBuffer);
+    console.log(data);
     data.forEach(function(item){
 	db[item.fileId].pId = targetId;
     });
 }
 
-vari.moveTo.addEventListener('click', function (e){
+vari.moveTo.addEventListener('click',moveToTargetFile);
+
+function moveToTargetFile(e){
     mouseDraw(false);
     setMoveFileDialog(sureFn, cancelFn);
     const {checkedBuffer} = vari;
     const data = getSelectElement(checkedBuffer);
 
 
-  const len = checkedBuffer.length;
-  
-  if(!len){
-    return alertMessage('尚未选中文件', 'error');
-  }
+    const len = checkedBuffer.length;
+
+    if(!len){
+	return alertMessage('尚未选中文件', 'error');
+    }
 
     function sureFn(){
 	const {conRow} = vari;
-          const {checkedBuffer} = vari;
-          const targetParents = getAllParen(dataBase, vari.moveTargetId);
-      let canMove = true;
+	const {checkedBuffer} = vari;
+	const targetParents = getAllParen(dataBase, vari.moveTargetId);
+	let canMove = true;
+	const intoSelf = data.every(function(item){
+	    return item.fileNode.children[0].dataset.pId*1 === vari.moveTargetId;
+	});
 
-      const intoSelf = data.every(function(item){
-	return item.fileNode.children[0].dataset.pId*1 === vari.moveTargetId;
-   });
+	if(intoSelf){
+	    canMove = false;
+	    return alertMessage('已经在当前目录', 'error'); // 移动到自己所在的目录
+	}
 
-    if(intoSelf){
-	canMove = false;
-	return alertMessage('已经在当前目录', 'error'); // 移动到自己所在的目录
-    }
-	
-      let parentArr = [];
+	let parentArr = [];
 	targetParents.forEach(item=>parentArr.push(item.id));
 	console.log(data,parentArr);
 	intoParent = data.find(function(item){
 
-	   return parentArr.indexOf(item.fileId*1) !==-1;
+	    return parentArr.indexOf(item.fileId*1) !==-1;
 	});
-	console.log(intoParent);
-    
-      if(intoParent){
-	  canMove = false;
-	  return alertMessage('不能移动到子级', 'error'); // 移动到自己的子级
-    }
-    
+
+
+	if(intoParent){
+	    canMove = false;
+	    return alertMessage('不能移动到子级', 'error'); // 移动到自己的子级
+	}
+
 	const nameRepeat = data.every(function(item){
 	    console.log(item.fileNode.children[0].dataset.name);
-	return nameConflict(dataBase,vari.moveTargetId,item.fileNode.children[0].dataset.name);
-    });
-    
-      if(!nameRepeat){
-	  canMove = false;
-	  return  alertMessage('存在同名文件', 'error');
-	  // 名字冲突
+	    return nameConflict(dataBase,vari.moveTargetId,item.fileNode.children[0].dataset.name);
+	});
+	if(!nameRepeat){
+	    canMove = false;
+	    return  alertMessage('存在同名文件', 'error');
+	    // 名字冲突
+	}
+	if(canMove){
+	    data.forEach(function(item, i) {
+		const {fileId, fileNode} = item;
+		moveToTarget(dataBase, fileId, vari.moveTargetId);
+		vari.conRow.removeChild(fileNode);
+	    });
+	    // showEmpty();
+	}
     }
-    if(canMove){
-      data.forEach(function(item, i) {
-          const {fileId, fileNode} = item;
-	  console.log(fileNode);
-        moveToTarget(dataBase, fileId, vari.moveTargetId);
-        vari.conRow.removeChild(fileNode);
-      });
-	// initCheckedFiles();
-	// showEmptyInfo();
+    function cancelFn(){
+	alertMessage('取消移动文件', 'normal');
     }
-  }
-  function cancelFn(){
-      alertMessage('取消移动文件', 'normal');
-  }
-});
+}
 
 function setMoveFileDialog(sureFn, cancelFn){
-  const {currentId} = vari;  
-  const fileMoveWrap = document.querySelector('.file-move');
+    const {currentId} = vari;  
+    const fileMoveWrap = document.querySelector('.file-move');
     const treeListNode = createFileMoveDialog(createTreeList(dataBase, 0, vari.currentId),'移动到');
-    vari.body.insertBefore(treeListNode,vari.alertBox);
-  dragEle({
-    downEle: vari.prompt.querySelector('.prompt h4'),
-    moveEle: vari.prompt.querySelector('.prompt-box')
-  });
-  
+    vari.body.insertBefore(treeListNode,vari.alertBox);  dragEle({
+	downEle: vari.prompt.querySelector('.prompt h4'),
+	moveEle: vari.prompt.querySelector('.prompt-box')
+    });
+
 
     const listTreeItems = document.querySelectorAll('.prompt .li-title');
     let prevActive = currentId;
     const len=listTreeItems.length;  
-  for(let i=0; i<len; i++){
-    listTreeItems[i].onclick = function (){
-      listTreeItems[prevActive].classList.remove('active');
+    for(let i=0; i<len; i++){
+	listTreeItems[i].onclick = function (){
+	    listTreeItems[prevActive].classList.remove('active');
 
-	prevActive = i;
-	this.classList.add('active');
-	// console.log(this.dataset.fileId);
-	vari.moveTargetId = this.dataset.fileId * 1;
-    };
-    
-    listTreeItems[i].firstElementChild.onclick = function (){
-      const allSiblings = [...this.parentNode.parentNode.children].slice(1);
-      if(allSiblings.length){
-        allSiblings.forEach(function(item, i) {
-          item.style.display = item.style.display === '' ? 'none' : '';
-        });
-      }
-      this.classList.toggle('open');
-    };
-  }
-  
-  const submitBtn = vari.prompt.querySelector('.submit');
-  const cancelBtn = vari.prompt.querySelector('.cancel');
-  // const closeBtn = fsDialog.querySelector('.close');
-  
+	    prevActive = i;
+	    this.classList.add('active');
+	    console.log(this.dataset.fileId);
+	    vari.moveTargetId = this.dataset.fileId * 1;
+	};
+
+	listTreeItems[i].firstElementChild.onclick = function (){
+	    const allSiblings = [...this.parentNode.parentNode.children].slice(1);
+	    if(allSiblings.length){
+		allSiblings.forEach(function(item, i) {
+		    item.style.display = item.style.display === '' ? 'none' : '';
+		});
+	    }
+	    this.classList.toggle('open');
+	};
+    }
+
+    const submitBtn = vari.prompt.querySelector('.submit');
+    const cancelBtn = vari.prompt.querySelector('.cancel');
+    // const closeBtn = fsDialog.querySelector('.close');
+
     submitBtn.onclick = function (){
-	setTimeout(sureFn,200);
+	sureFn&&sureFn();
 	closeTreeList();
 
-  };
-  cancelBtn.onclick = function (e){
-    closeTreeList();
-  };
-      function closeTreeList(){
-	  vari.prompt.classList.remove('show');
-	  vari.prompt.innerHTML = '';
-	  initFresh();
-  }
-  // closeBtn.onmousedown = function (e){
-  //   e.stopPropagation();
-  // };
+    };
+    cancelBtn.onclick = function (e){
+	closeTreeList();
+    };
+
+    // closeBtn.onmousedown = function (e){
+    //   e.stopPropagation();
+    // };
+}
+
+function closeTreeList(){
+    vari.prompt.classList.remove('show');
+    vari.prompt.innerHTML = '';
+    initFresh();
 }
 
 function initFresh(){
@@ -695,13 +694,13 @@ function initFresh(){
     [...fileChildren].forEach(function(item){
 	item.classList.remove('active');
     });
-    	vari.offlineDownload.style.display='block';
-	vari.subNav.style.display = 'none';
+    vari.offlineDownload.style.display='block';
+    vari.subNav.style.display = 'none';
 }
 
 //鼠标画框
 //     vari.container.addEventListener('mousedown',function(e){
-	mouseDraw(true);
+mouseDraw(true);
 //     });
 
 // function mouseDraw(e){
@@ -723,7 +722,7 @@ function initFresh(){
 
 // 	const startX = e.pageX;
 // 	const startY = e.pageY;
-	
+
 // 	function frameMove(e){
 // 	    let x = e.pageX;
 // 	    let y = e.pageY;
@@ -732,7 +731,7 @@ function initFresh(){
 // 	    let t = Math.min(y,startY);
 // 	    let w = Math.abs(x - startX);
 // 	    let h = Math.abs(y - startY);
-	    
+
 // 	    for(let i=0; i<children.length; i++){
 // 		if(duang(frame,children[i])){
 // 		    children[i].classList.add('active');
@@ -751,15 +750,15 @@ function initFresh(){
 // 		    children[i].classList.remove('active');
 // 		}
 // 	    }
-	    
+
 // 	    vari.btnRename.classList.toggle('disable',length !==1);
-	    
+
 // 	    if(vari.checkedBuffer.length == children.length){
 // 		vari.checkAll.classList.add('active');
 // 	    }else{
 // 		vari.checkAll.classList.remove('active');
 // 	    }
-	    
+
 // 	    frame.style.left = l + 'px';
 // 	    frame.style.top = t +'px';
 // 	    frame.style.width = w + 'px';
@@ -775,13 +774,13 @@ function initFresh(){
 // 	    vari.container.removeEventListener('mousemove',frameMove);
 // 	    vari.container.removeEventListener('mouseup',cancelFrame);
 // 	}
-    
+
 // 	// console.log(children[0].fileId);
 // }
 
 function mouseDraw(ban){
 
-     const children = vari.conRow.children;
+    const children = vari.conRow.children;
     vari.body.onmousedown = function (e){
 	e.preventDefault();
 	if(e.target.classList.contains('col-1') || e.target.classList.contains('nav-bar')||e.target.classList.contains('check-all') ||e.target.classList.contains('count-load-file')){
@@ -793,18 +792,18 @@ function mouseDraw(ban){
 	const startX = e.pageX;
 	const startY = e.pageY;
 	document.onmousemove = function (e){
-            let x = e.pageX, y = e.pageY;
-	    
-                 const l = Math.min(x, startX);
+	    let x = e.pageX, y = e.pageY;
+
+	    const l = Math.min(x, startX);
 	    const t = Math.min(y, startY);
-        const w = Math.abs(x - startX);
-        const h = Math.abs(y - startY);
-        for(var i=0; i<children.length; i++){
-            if(duang(frame, children[i])){
-		children[i].classList.add('active');
+	    const w = Math.abs(x - startX);
+	    const h = Math.abs(y - startY);
+	    for(var i=0; i<children.length; i++){
+		if(duang(frame, children[i])){
+		    children[i].classList.add('active');
 		    vari.checkedBuffer[children[i].fileId] = children[i];
-		vari.checkedBuffer.length =getSelectElement(vari.checkedBuffer).length ;
-		if(vari.checkedBuffer.length>=1){
+		    vari.checkedBuffer.length =getSelectElement(vari.checkedBuffer).length ;
+		    if(vari.checkedBuffer.length>=1){
 			vari.offlineDownload.style.display ='none';
 			vari.subNav.style.display = 'flex';
 		    }else{
@@ -813,25 +812,25 @@ function mouseDraw(ban){
 
 		    }
 
-            }
-        }
-        
+		}
+	    }
+
 	    vari.btnRename.classList.toggle('disable',vari.checkedBuffer.length !==1);
-	    
+
 	    if(vari.checkedBuffer.length == children.length){
 		vari.checkAll.classList.add('active');
 	    }else{
 		vari.checkAll.classList.remove('active');
 	    }
-        frame.style.left = l + 'px';
-        frame.style.top = t + 'px';
-        frame.style.width = w + 'px';
-        frame.style.height = h + 'px';
+	    frame.style.left = l + 'px';
+	    frame.style.top = t + 'px';
+	    frame.style.width = w + 'px';
+	    frame.style.height = h + 'px';
 	};
-      document.onmouseup = function (e){
-        document.body.removeChild(frame);
-        this.onsmoueup = this.onsmouemove = null;
-      };
+	document.onmouseup = function (e){
+	    document.body.removeChild(frame);
+	    this.onsmoueup = this.onsmouemove = null;
+	};
 
     };
 }
@@ -839,35 +838,80 @@ function mouseDraw(ban){
 
 //右键菜单
 
-function menuOnFile(){
-    const menu = document.querySelector('.click-menu');
-    [...vari.conRow.children].forEach(function(item){
-	item.addEventListener('contextmenu',function(e){
-	    e.preventDefault();
-	    let x = e.pageX;
-	    let y = e.pageY;
-	    menu.style.display='flex';
-	    menu.style.transform='scale(1)';
-	    if(window.innerWidth-x<menu.offsetWidth){
-		x= window.innerWidth - menu.offsetWidth;
-	    }
+function menuOnFile(onFile){
+    let menu;
+    if(onFile){
+	menu = vari.menuOnFile;
+	[...vari.conRow.children].forEach(function(item){
 
-	    if(x < vari.container.offsetLeft){
-		x = vari.container.offsetLeft;
-	    }
-	    
-	    if(window.innerHeight-y<menu.offsetHeight){
-		y = window.innerHeight - menu.offsetHeight;
-	    }
+	    item.addEventListener('contextmenu',function(e){
+		e.preventDefault();
+		initFresh();
+		item.classList.add('active');
+		vari.checkedBuffer[item.fileId] = item;
+		vari.checkedBuffer.length=1;
+		// item.children[0].dataset
+		showSubNav();
+		menu.fileId = item.fileId;
+		console.log(menu.fileId);
+		let x = e.pageX;
+		let y = e.pageY;
+		menu.style.display='flex';
+		menu.style.transform='scale(1)';
+		if(window.innerWidth-x<menu.offsetWidth){
+		    x= window.innerWidth - menu.offsetWidth;
+		}
 
-	    menu.style.left = x + 'px';
-	    menu.style.top = y + 'px';
-	    
+		if(x < vari.container.offsetLeft){
+		    x = vari.container.offsetLeft;
+		}
+
+		if(window.innerHeight-y<menu.offsetHeight){
+		    y = window.innerHeight - menu.offsetHeight;
+		}
+
+		menu.style.left = x + 'px';
+		menu.style.top = y + 'px';
+
+	    });
+
+	    contextMenuFunction(onFile);
 	});
-    });
+    }else{
+
+    }
 
     document.addEventListener('click',function(e){
 	menu.style.display='none';
-    	    menu.style.transform = 'scale(0)';
+	menu.style.transform = 'scale(0)';
     });
+}
+
+//右键菜单的功能
+function contextMenuFunction(onFile){
+	let menu;
+    if(onFile){
+	menu = vari.menuOnFile;
+	const open = menu.querySelector('.open');
+	const move = menu.querySelector('.move');
+	const rename = menu.querySelector('.rename');
+	const menuDelete = menu.querySelector('.delete');
+
+	open.onclick = function(){
+	    openFile(dataBase,menu.fileId);
+	};
+	move.onclick = function(e){
+	    moveToTargetFile(e);
+	};
+	rename.onclick = function(e){
+	    permitRename();
+	};
+	menuDelete.onclick = function(e){
+	    let target = e.target;
+	    vari.body.insertBefore(createPrompt('delete-box'),vari.alertBox);
+	    deleteFile();
+	};
+    }else{
+
+    }
 }

@@ -98,7 +98,7 @@ ul {
 
 body {
     font-size: 1em;
-    background: url('../img/bg/bg8.jpg') no-repeat;
+    background: url('../img/bg/bg3.jpg') no-repeat;
     background-size: auto 150%;
     background-attachment: fixed;
     height: 100%;
@@ -398,14 +398,15 @@ $list-height: 2.8125rem;
 .sub-nav{
     @include flex();
     display:none;
-}
-.disable{
+    .disable{
     color: #9dc5ff !important;
     border-color: #9dc5ff !important;
     a {
 	cursor: default;
     }
 }
+}
+
 /*-----------------rename end-----------*/
 .count-load-file {
     width: 100%;
@@ -969,7 +970,7 @@ $file-icon-base: 10px;
 }
 
 /*---------------------------------right-click-menu---------------------------------*/
-
+$menu-border-color: #dde0e4;
 .click-menu{
     position: absolute;
     display: flex;
@@ -981,7 +982,7 @@ $file-icon-base: 10px;
     background: #fff;
     border-radius: 6px;
     color: #5b667b;
-    box-shadow: 0 0 1px 2px rgba(0,0,0,0.1);
+    box-shadow: 0 0 0px 2px rgba($menu-border-color,0.2);
     transform: scale(0);
     transform-origin: 0 0;
     transition: 0.2s;
@@ -989,12 +990,35 @@ $file-icon-base: 10px;
     ul{
 	margin: 0px;
 	border: 1px solid #e9e9e9;
-	padding: 3px;
+	padding:  3px;
+	margin-top: -1px;
 	li{
-	    padding-left: 1.5em;
+	    padding: 2px 1.5em  0;
+	    cursor: default;
 	    &:hover{
 		background: $btn-main-color;
-		}
+		color: $control-color;
+	    }
+	    
 	}
+    }
+    .disable{
+	color:#d9dde5;
+	&:hover{
+		background: $control-color;
+		    color: #d9dde5;
+		}
+    }
+}
+
+/*--------------show empty--------------------------*/
+.show-empty{
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    &.show{
+	display:flex;
     }
 }
