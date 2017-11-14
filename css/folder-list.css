@@ -1,0 +1,159 @@
+/* line 7, ../sass/folder-list.scss */
+.container {
+  flex: 1;
+  background: #fff;
+  height: 100%;
+  border-radius: 5px;
+  opacity: 0.95;
+}
+/* line 13, ../sass/folder-list.scss */
+.container .seclected-menu {
+  display: flex;
+  flex-flow: row nowrap;
+}
+/* line 16, ../sass/folder-list.scss */
+.container .row {
+  display: flex;
+  flex-flow: column nowrap;
+  left: 0;
+  position: relative;
+}
+
+/* line 26, ../sass/folder-list.scss */
+.col-1 {
+  max-width: 100% !important;
+  flex: 1 !important;
+  font-size: 0.75rem;
+  border-radius: 2px;
+  display: flex;
+  flex-flow: row nowrap;
+  position: relative;
+  left: 0;
+  border-bottom: 1px solid #f2f6fd;
+  border-top: 1px solid #f2f6fd;
+}
+/* line 38, ../sass/folder-list.scss */
+.col-1:hover {
+  margin-top: -1px;
+  padding-top: 1px;
+  border-color: rgba(59, 140, 255, 0.5);
+  background: #f1f5fa;
+}
+/* line 44, ../sass/folder-list.scss */
+.col-1.active {
+  border-color: #90c3fd;
+  background: #f1f5fa;
+}
+/* line 48, ../sass/folder-list.scss */
+.col-1.active .true::before {
+  opacity: 1;
+}
+/* line 53, ../sass/folder-list.scss */
+.col-1 .file-con {
+  width: 86.0833em;
+  display: flex;
+}
+/* line 57, ../sass/folder-list.scss */
+.col-1 .file-bit {
+  width: 22.6667em;
+  line-height: 50px;
+}
+/* line 61, ../sass/folder-list.scss */
+.col-1 .change-date {
+  line-height: 50px;
+}
+/* line 64, ../sass/folder-list.scss */
+.col-1 .file {
+  padding-top: 1em;
+  align-self: center;
+  padding-bottom: 1.25em;
+}
+/* line 68, ../sass/folder-list.scss */
+.col-1 .file .grey-file {
+  width: 12px;
+  height: 3px;
+  border-radius: 3px 6px 0 0;
+  background: #ecc049;
+}
+/* line 74, ../sass/folder-list.scss */
+.col-1 .file .main-file {
+  width: 26px;
+  height: 18px;
+  background: #ffd659;
+  border-radius: 0 3px 3px;
+}
+/* line 81, ../sass/folder-list.scss */
+.col-1 .true {
+  margin: 1.25em 1.08333em 0;
+  width: 14px;
+  height: 14px;
+  border: 1px solid #d6dce4;
+  font-size: 0.75rem;
+  line-height: 1.58;
+  text-align: center;
+  border-radius: 2px;
+  line-height: 14px;
+  color: #3b8cff;
+}
+/* line 92, ../sass/folder-list.scss */
+.col-1 .true::before {
+  opacity: 0;
+}
+/* line 97, ../sass/folder-list.scss */
+.col-1 .file-title {
+  margin-left: 1.25em;
+  margin-top: 1.25em;
+  display: none;
+}
+/* line 101, ../sass/folder-list.scss */
+.col-1 .file-title.show {
+  display: block;
+}
+
+/* line 107, ../sass/folder-list.scss */
+.file-title {
+  text-align: center;
+  cursor: pointer;
+}
+
+/* line 112, ../sass/folder-list.scss */
+.rename {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  background: #fff;
+  justify-content: space-between;
+  left: 6.6667em;
+  bottom: 1em;
+  display: none;
+  z-index: 999;
+}
+/* line 123, ../sass/folder-list.scss */
+.rename.show {
+  display: flex;
+}
+/* line 127, ../sass/folder-list.scss */
+.rename input {
+  width: 17.6667em;
+  height: 24px;
+  border-radius: 5px;
+  border: 1px solid #c4dcff;
+  box-shadow: 0 0 1px 3px rgba(182, 212, 255, 0.9);
+  padding: 4px 5px;
+  margin-right: 4px;
+}
+/* line 136, ../sass/folder-list.scss */
+.rename .yes,
+.rename .no {
+  width: 24px;
+  height: 24px;
+  border-radius: 2px;
+  border: 1px solid #cee2ff;
+  box-shadow: 0 0 1px 1px #cee2ff;
+  text-align: center;
+  color: #3b8cff;
+  vertical-align: middle;
+  line-height: 24px;
+  margin: 0 2px;
+}

@@ -1,0 +1,44 @@
+
+@mixin sprite($left, $top, $width:20px, $height:20px) {
+    background: url('../img/sprite.png');
+    width: $width;
+    height: $height;
+    background-position: $left $top;
+    display: inline-block;
+    vertical-align: top;
+}
+
+@mixin flex($row:row,
+$wrap:nowrap) {
+    display: flex;
+    flex-flow: $row $wrap;
+}
+
+@mixin shade($color:$control-color,
+$per:10%) {
+    color: shade($control-color, 10%);
+}
+
+@mixin hovered($left,
+$top,
+$width:20px,
+$height:20px) {
+    background: url('../img/sprite.png');
+    width: $width;
+    height: $height;
+    background-position: -120+$left $top;
+    display: inline-block;
+    vertical-align: top;
+}
+
+@mixin sprite-before($left,
+$top) {
+    &::before {
+        @include sprite($left,
+        $top);
+        content: '';
+        position: absolute;
+        left: -2.25em;
+        top: 0.9375em;
+    }
+}

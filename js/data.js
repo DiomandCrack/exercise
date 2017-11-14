@@ -9,3 +9,9 @@ dataBase={
     '7':{id:7, pId:6, name: 'µÚÈıÀÖÕÂ'},
     '8':{id:8, pId:1, name: 'ÒôÀÖ'}
 };
+
+
+changeList = [
+    'css/folder-large.css',
+    'css/folder-list.css'
+];

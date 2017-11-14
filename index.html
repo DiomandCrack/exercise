@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/bootstrap.css" />
     <link href="css/font-awesome.css" rel="stylesheet" />
+    <link href="css/folder-large.css" rel="stylesheet" id="list-style"/>
 </head>
 
 <body>
@@ -96,11 +97,11 @@
 
                 <div class="search">
                     <div class="search-border">
-                        <input name="" type="text" value="" placeholder="搜索您的文件" />
+                        <input name="" type="text" value="" placeholder="搜索您的文件" class="search-text"/>
                         <i class="fa fa-search" aria-hidden="true"></i>
 
                     </div>
-                    <i class="fa fa-bars" aria-hidden="true"></i>
+                    <i class="fa fa-bars change-style" aria-hidden="true"></i>
                     <i class="fa fa-sort-amount-desc" aria-hidden="true"></i>
                 </div>
             </nav>
@@ -243,16 +244,16 @@
       <ul>
 	<li class="change-list"><span>查看</span><i></i>
 	  <ul class="sub-change-list">
-	    <li>列表</li>
-	    <li>缩略图</li>
+	    <li class="list"><i></i>列表</li>
+	    <li class="pic disable">缩略图</li>
 	  </ul>
 	</li>
 	
 	<li class="sort"><span>排序方式</span><i></i>
 	  <ul class="sub-list">
-	    <li>名称</li>
-	    <li>大小</li>
-	    <li>修改日期</li>
+	    <li class="name">名称</li>
+	    <li class="data disable">大小</li>
+	    <li class="date">修改日期</li>
 	  </ul>
 	</li>
 	<li class="fresh">刷新</li>

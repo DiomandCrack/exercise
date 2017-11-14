@@ -24,7 +24,12 @@ const vari ={
     moveTargetId:0,
     menuOnFile: document.querySelector('.click-menu'),
     menuOnWhite: document.querySelector('.menu-on-white'),
-    emptyInfo: document.querySelector('.show-empty')
+    emptyInfo: document.querySelector('.show-empty'),
+    changeStyle: document.querySelector('.change-style'),
+    switchChange: false,
+    rename: false,
+    searchText: document.querySelector('.search-text'),
+    switchSearch: false
 };
 
 //生成文件夹节点
@@ -39,7 +44,7 @@ function createFileNode(fileData){
 		       </div>
 		       <div class="file-title show">${fileData.name}</div>
 		       <div class="rename">
-			   <input name="" type="text" value="${fileData.name}"/>
+			   <input name="" type="text" value="${fileData.name}" class="show-input"/>
 		      <i class="fa fa-check yes"  aria-hidden="true"></i>
 <i class="fa fa-times no" aria-hidden="true"></i>
 		       </div>
@@ -199,6 +204,9 @@ vari.btnRename.addEventListener('click',permitRename);
 
 
 function permitRename(){
+
+    vari.rename = true;
+    
     if(vari.checkedBuffer.length===1){
 	const {checkedBuffer} = vari;
 	const length = checkedBuffer.length;
@@ -213,8 +221,11 @@ vari.deleteBtn.addEventListener('click',function(e){
 });
 //监听新建按钮
 vari.createNewFile.addEventListener('click',function(e){
+    vari.rename = true;
     createFolder();
     showEmpty();
+    menuOnFile(true);
+    menuOnWhite();
 });
 
 
@@ -253,7 +264,6 @@ function setFileTitle(checkedBuffer,boolean){
 	    nameInput.focus();
 	    return alertMessage('文件(夹)名称不能为空，请输入文件名称','error');
 	}
-	console.log(nameInput);
 
 	if(newName === initName && boolean){   return switchName(nameText,nameChange,'show');}
 	if(!nameConflict(dataBase,vari.currentId,newName)){
@@ -287,10 +297,19 @@ function setFileTitle(checkedBuffer,boolean){
     // wrong.addEventListener('click',toggleWrong);
     right.onclick = function(){
 	renameRule(boolean);
+	    	vari.rename = false;
     };
     wrong.onclick = function(){
 	toggleWrong(boolean);
+	    	vari.rename = false;
+
     };
+    window.onkeyup = function (e){
+	if(e.keyCode === 13){
+	    renameRule(boolean);
+      this.onkeyup = null;
+    }
+  };
 }
 
 //重命名共用函数
@@ -788,7 +807,8 @@ mouseDraw(true);
 function mouseDraw(ban){
 
     const children = vari.conRow.children;
-    vari.body.onmousedown = function (e){
+    document.onmousedown = function (e){
+	if(vari.rename) return;
 	e.preventDefault();
 	if(e.target.classList.contains('col-1') || e.target.classList.contains('nav-bar')||e.target.classList.contains('check-all') ||e.target.classList.contains('count-load-file')){
 	    return;
@@ -919,14 +939,39 @@ function contextMenuFunction(onFile){
     }else{
 	menu = vari.menuOnWhite;
 	const newFolder = menu.querySelector('.creat-new-folder');
+	const listStyle = document.getElementById('list-style');
 	const fresh = menu.querySelector('.fresh');
 	const sort = menu.querySelector('.sort');
 	const change = menu.querySelector('.change-list');
-
+	const list  = menu.querySelector('.list');
+	const pic = menu.querySelector('.pic');
+	console.log(newFolder);
 	fresh.onclick = function(){
 	    initFresh();
 	};
-	
+	newFolder.onclick = function(){
+	    createFolder();
+	    showEmpty();
+	    menuOnFile(true);
+	    menuOnWhite();
+	};
+	list.onclick = function(){
+	    listStyle.href = changeList[1];
+	    vari.changeStyle.classList.add('fa-th-large');
+	    vari.changeStyle.classList.remove('fa-bars');
+	    vari.switchChange = true;
+	    pic.classList.remove('disable');
+	    list.classList.add('disable');
+	};
+	pic.onclick = function(){
+	    listStyle.href = changeList[0];
+	// <i class="fa fa-th-large" aria-hidden="true"></i>
+	    vari.changeStyle.classList.add('fa-bars');
+	    vari.changeStyle.classList.remove('fa-th-large');
+	    vari.switchChange = false;
+	    list.classList.remove('disable');
+	    pic.classList.add('disable');
+	};
     }
 }
 //在空白处的菜单
@@ -935,7 +980,6 @@ function menuOnWhite(){
     const sort = menu.querySelector('.sub-list');
     const change = menu.querySelector('.sub-change-list');
     vari.container.addEventListener('contextmenu',function(e){
-	console.log(e.target.fileId);
 	e.preventDefault();
 	initFresh();
 	let x = e.pageX;
@@ -968,9 +1012,34 @@ function menuOnWhite(){
 	    menu.style.left = x + 'px';
 	    menu.style.top = y + 'px';
 	}
+		    contextMenuFunction();
     });
         document.addEventListener('click',function(e){
 	menu.style.display='none';
 	menu.style.transform = 'scale(0)';
     });
 }
+//---------------------change style --------------------------------
+
+vari.changeStyle.onclick = function(e){
+    e.stopPropagation();
+    const listStyle = document.getElementById('list-style');
+    console.log(vari.changeStyle);
+    if(vari.switchChange){
+	listStyle.href = changeList[0];
+	// <i class="fa fa-th-large" aria-hidden="true"></i>
+	vari.changeStyle.classList.add('fa-bars');
+	vari.changeStyle.classList.remove('fa-th-large');
+    }else{
+	listStyle.href = changeList[1];
+	vari.changeStyle.classList.add('fa-th-large');
+	vari.changeStyle.classList.remove('fa-bars');
+    }
+    vari.switchChange = !vari.switchChange;
+};
+
+//排序方式
+
+//1 按名称排序
+//2 文件大小
+//3 日期

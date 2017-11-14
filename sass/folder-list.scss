@@ -1,0 +1,149 @@
+@import "compass";
+@import "partials/variables";
+@import "partials/mixins";
+
+
+
+ .container {
+    flex: 1;
+    background: #fff;
+    height: 100%;
+    border-radius: 5px;
+    opacity:0.95;
+    .seclected-menu {
+        @include flex();
+    }
+    .row {
+        @include flex(column,
+        nowrap);
+        left: 0;
+        position: relative;
+    }
+}
+
+
+
+.col-1 {
+    max-width: 100% !important;
+    flex: 1 !important;
+    font-size: 0.75rem;
+    border-radius: 2px;
+    display: flex;
+    flex-flow: row nowrap;
+    position: relative;
+    left: 0;
+    border-bottom: 1px solid #f2f6fd;
+    border-top: 1px solid #f2f6fd;
+    
+    &:hover {
+	margin-top: -1px;
+	padding-top: 1px;
+         border-color: rgba($btn-main-color,0.5);
+         background: #f1f5fa;
+    }
+      &.active {
+         border-color: #90c3fd;
+         background: #f1f5fa;
+         .true {
+	     &::before{
+             opacity: 1;     
+	     }
+	 }
+    }
+    .file-con {
+        width: 86.0833em;
+        display: flex;
+    }
+    .file-bit {
+        width: 22.6667em;
+        line-height: 50px;
+    }
+    .change-date {
+        line-height: 50px;
+    }
+    .file {
+        padding-top: 1em;
+        align-self: center;
+        padding-bottom: 1.25em;
+        .grey-file {
+            width: 1.2*$file-icon-base;
+            height: 0.3*$file-icon-base;
+            border-radius: 3px 6px 0 0;
+            background: #ecc049;
+        }
+        .main-file {
+            width: 2.6*$file-icon-base;
+            height: 1.8*$file-icon-base;
+            background: #ffd659;
+            border-radius: 0 3px 3px;
+        }
+    }
+    .true {
+        margin: 1.25em 1.08333em 0;
+        width: 14px;
+        height: 14px;
+        border: 1px solid $check-border;
+        font-size: 0.75rem;
+        line-height: 1.58;
+        text-align: center;
+        border-radius: 2px;
+	line-height: 14px;
+	color: $btn-main-color;
+	&::before{
+	    opacity: 0;
+	}
+    }
+    
+    .file-title {
+        margin-left: 1.25em;
+        margin-top: 1.25em;
+	display:none;
+	&.show{
+	    display:block;
+	}
+    }
+}
+
+.file-title {
+    text-align: center;
+    cursor: pointer;
+}
+
+.rename {
+    $box-shadow: #b6d4ff;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    background: #fff;
+    justify-content: space-between;
+    left: 6.6667em;
+    bottom: 1em;
+            display: none;
+	&.show{
+	    display:flex;
+	}
+	z-index:999;
+    input {
+        width: 17.6667em;
+        height: 24px;
+        border-radius: 5px;
+        border: 1px solid #c4dcff;
+        box-shadow: 0 0 1px 3px rgba($box-shadow, 0.9);
+        padding: 4px 5px;
+        margin-right: 4px;
+    }
+    .yes,
+    .no {
+        width: 24px;
+        height: 24px;
+        border-radius: 2px;
+        border: 1px solid #cee2ff;
+        box-shadow: 0 0 1px 1px #cee2ff;
+        text-align: center;
+        color: #3b8cff;
+        vertical-align: middle;
+        line-height: 24px;
+        margin: 0 2px;
+    }
+} 

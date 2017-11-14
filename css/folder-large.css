@@ -1,90 +1,137 @@
-/*
-Error: Undefined mixin 'flex'.
-        on line 7 of D:/baiduyun/sass/folder-large.scss, in `flex'
-        from line 7 of D:/baiduyun/sass/folder-large.scss
+/* line 4, ../sass/folder-large.scss */
+.container {
+  flex: 1;
+  background: #fff;
+  height: 100%;
+  border-radius: 5px;
+  opacity: 0.95;
+}
+/* line 10, ../sass/folder-large.scss */
+.container .seclected-menu {
+  display: flex;
+  flex-flow: row nowrap;
+}
+/* line 13, ../sass/folder-large.scss */
+.container .row {
+  display: flex;
+  flex-flow: row wrap;
+  left: 0;
+  position: relative;
+  padding: 0 1.5rem;
+}
 
-2:     flex: 1;
-3:     background: #fff;
-4:     height: 100%;
-5:     border-radius: 5px;
-6:     .seclected-menu {
-7:         @include flex();
-8:     }
-9: }
-10: 
-11: 
-12: /*--------------------------folder-----------------------------------*\/
-
-Backtrace:
-D:/baiduyun/sass/folder-large.scss:7:in `flex'
-D:/baiduyun/sass/folder-large.scss:7
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:352:in `block in visit_mixin'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/stack.rb:98:in `block in with_mixin'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/stack.rb:115:in `with_frame'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/stack.rb:98:in `with_mixin'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:350:in `visit_mixin'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/base.rb:36:in `visit'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:162:in `block in visit'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/stack.rb:79:in `block in with_base'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/stack.rb:115:in `with_frame'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/stack.rb:79:in `with_base'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:162:in `visit'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:434:in `block (2 levels) in visit_rule'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:434:in `map'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:434:in `block in visit_rule'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:183:in `with_environment'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:432:in `visit_rule'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/base.rb:36:in `visit'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:162:in `block in visit'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/stack.rb:79:in `block in with_base'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/stack.rb:115:in `with_frame'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/stack.rb:79:in `with_base'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:162:in `visit'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:434:in `block (2 levels) in visit_rule'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:434:in `map'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:434:in `block in visit_rule'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:183:in `with_environment'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:432:in `visit_rule'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/base.rb:36:in `visit'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:162:in `block in visit'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/stack.rb:79:in `block in with_base'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/stack.rb:115:in `with_frame'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/stack.rb:79:in `with_base'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:162:in `visit'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/base.rb:52:in `map'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/base.rb:52:in `visit_children'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:171:in `block in visit_children'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:183:in `with_environment'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:170:in `visit_children'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/base.rb:36:in `block in visit'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:190:in `visit_root'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/base.rb:36:in `visit'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:161:in `visit'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:10:in `visit'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/root_node.rb:36:in `css_tree'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/root_node.rb:20:in `render'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/engine.rb:284:in `render'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/compass-import-once-1.0.5/lib/compass/import-once/engine.rb:17:in `block in render'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/compass-import-once-1.0.5/lib/compass/import-once/engine.rb:29:in `with_import_scope'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/compass-import-once-1.0.5/lib/compass/import-once/engine.rb:16:in `render'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/plugin/compiler.rb:494:in `update_stylesheet'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/plugin/compiler.rb:209:in `each'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/plugin/compiler.rb:294:in `watch'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/compass-1.0.3/lib/compass/sass_compiler.rb:46:in `watch!'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/compass-1.0.3/lib/compass/commands/watch_project.rb:41:in `perform'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/compass-1.0.3/lib/compass/commands/base.rb:18:in `execute'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/compass-1.0.3/lib/compass/commands/project_base.rb:19:in `execute'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/compass-1.0.3/lib/compass/exec/sub_command_ui.rb:43:in `perform!'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/compass-1.0.3/lib/compass/exec/sub_command_ui.rb:15:in `run!'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/compass-1.0.3/bin/compass:30:in `block in <top (required)>'
-C:/RailsInstaller/Ruby2.3.0/lib/ruby/gems/2.3.0/gems/compass-1.0.3/bin/compass:44:in `<top (required)>'
-C:/RailsInstaller/Ruby2.3.0/bin/compass:23:in `load'
-C:/RailsInstaller/Ruby2.3.0/bin/compass:23:in `<main>'
-*/
-body:before {
-  white-space: pre;
-  font-family: monospace;
-  content: "Error: Undefined mixin 'flex'.\A         on line 7 of D:/baiduyun/sass/folder-large.scss, in `flex'\A         from line 7 of D:/baiduyun/sass/folder-large.scss\A \A 2:     flex: 1;\A 3:     background: #fff;\A 4:     height: 100%;\A 5:     border-radius: 5px;\A 6:     .seclected-menu {\A 7:         @include flex();\A 8:     }\A 9: }\A 10: \A 11: \A 12: /*--------------------------folder-----------------------------------*/"; }
+/* line 22, ../sass/folder-large.scss */
+.col-1 {
+  height: 8rem;
+  margin: 3px;
+  padding: 6px;
+  border-radius: 4px;
+  position: relative;
+  border: 1px solid transparent;
+  font-size: 0.75rem;
+  left: 0;
+}
+/* line 31, ../sass/folder-large.scss */
+.col-1:hover {
+  border-color: #f1f5fa;
+  background: #f1f5fa;
+}
+/* line 34, ../sass/folder-large.scss */
+.col-1:hover .true {
+  opacity: 0.6;
+}
+/* line 38, ../sass/folder-large.scss */
+.col-1 .file-con {
+  display: flex;
+  flex-direction: column;
+}
+/* line 42, ../sass/folder-large.scss */
+.col-1.active {
+  border-color: #90c3fd;
+  background: #f1f5fa;
+}
+/* line 45, ../sass/folder-large.scss */
+.col-1.active .true {
+  opacity: 1;
+}
+/* line 50, ../sass/folder-large.scss */
+.col-1 .true {
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: #3b8cff;
+  font-size: 12px;
+  line-height: 19px;
+  color: #fff;
+  text-align: center;
+  opacity: 0;
+}
+/* line 61, ../sass/folder-large.scss */
+.col-1 .file {
+  padding-top: 4px;
+  align-self: center;
+  padding-bottom: 23px;
+}
+/* line 65, ../sass/folder-large.scss */
+.col-1 .file .grey-file {
+  width: 27px;
+  height: 6px;
+  border-radius: 3px 6px 0 0;
+  background: #ecc049;
+}
+/* line 71, ../sass/folder-large.scss */
+.col-1 .file .main-file {
+  width: 56px;
+  height: 40px;
+  background: #ffd659;
+  border-radius: 0 3px 3px;
+}
+/* line 78, ../sass/folder-large.scss */
+.col-1 .file-title {
+  text-align: center;
+  display: none;
+}
+/* line 81, ../sass/folder-large.scss */
+.col-1 .file-title.show {
+  display: block;
+}
+/* line 85, ../sass/folder-large.scss */
+.col-1 .rename {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 140px;
+  background: #fff;
+  justify-content: space-between;
+  left: 50%;
+  bottom: 6px;
+  transform: translate(-50%, 0);
+  display: none;
+  z-index: 999;
+}
+/* line 98, ../sass/folder-large.scss */
+.col-1 .rename.show {
+  display: flex;
+}
+/* line 102, ../sass/folder-large.scss */
+.col-1 .rename input {
+  width: 83px;
+  height: 24px;
+  border: 1px solid #c4dcff;
+  box-shadow: 0 0 1px 3px rgba(182, 212, 255, 0.9);
+  padding: 4px 5px;
+}
+/* line 109, ../sass/folder-large.scss */
+.col-1 .rename .yes,
+.col-1 .rename .no {
+  width: 24px;
+  height: 24px;
+  border-radius: 2px;
+  border: 1px solid #cee2ff;
+  box-shadow: 0 0 1px 1px #cee2ff;
+  text-align: center;
+  color: #3b8cff;
+  vertical-align: middle;
+  line-height: 24px;
+}
