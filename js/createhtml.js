@@ -29,7 +29,11 @@ const vari ={
     switchChange: false,
     rename: false,
     searchText: document.querySelector('.search-text'),
-    switchSearch: false
+    switchSearch: false,
+    dateAll: document.querySelector('.date-all'),
+    bitAll:document.querySelector('.bit-all'),
+    search:document.querySelector('.search-border'),
+    searchFile: false
 };
 
 //生成文件夹节点
@@ -62,33 +66,58 @@ function createFileNode(fileData){
     return file;//返回整个文件夹节点
 }
 
+
+
+//生成文件夹
+function createFileList(db,id,number,search){
+    vari.conRow.innerHTML = '';
+        const searchInput = vari.search.querySelector('.search-text');
+    let children;
+    if(search){
+	const data = getSelectElement(db);
+	const searchData = data.filter(function(item){
+	    return item.fileNode.name.indexOf(searchInput.value) != -1;
+	});
+	children = searchData.map(function(item){
+	    return item.fileNode;
+	});
+	createBreadCrumb(dataBase,0);
+	const searchResult = document.createElement('li');
+	searchResult.innerHTML = `<i>&gt;</i>搜索到<strong>"${searchInput.value}"</strong>的结果`;
+	vari.breadCrumbNav.appendChild(searchResult);
+	vari.currentId = -1;
+	
+    }else{
+	children = getChildrenById(db,id);
+	vari.childrenAll = children;
+	vari.fileNum = children.length;
+    }
+    // 排序
+    if(number===1){
+	sortByName(children,'name');
+    }else if(number===2){
+	sortType(children,'id');
+    }
+
+    children.forEach(function(item,i){
+    	vari.conRow.appendChild(createFileNode(item));
+    });
+}
 //生成面包屑导航节点
 function createBreadCrumbNode(fileData){
     const crumbList = document.createElement('li');
     const href = document.createElement('a');
-
     href.fileId = fileData.id;
     href.innerHTML = `<i>&gt;</i> ${fileData.name}`;//生成面包屑导航html
     href.href = 'javascript:;';
     crumbList.appendChild(href);
     return crumbList;
 }
-
-//生成文件夹
-function createFileList(db,id){
-    vari.conRow.innerHTML = '';
-    let children = getChildrenById(db,id);
-    vari.childrenAll = children;
-    vari.fileNum = children.length;
-    children.forEach(function(item,i){
-	vari.conRow.appendChild(createFileNode(item));
-    });
-}
-
 //生成面包屑导航
 function createBreadCrumb(db,id){
     vari.breadCrumbNav.innerHTML = '';
     var data = getAllParen(db,id);
+    
     data.forEach(function(item,i){
 	vari.breadCrumbNav.appendChild(createBreadCrumbNode(item));
     });
@@ -99,9 +128,11 @@ openFile(dataBase,vari.currentId);
 
 //将生成文件夹和导航绑定在一起
 function openFile(db,currentId){
+    	        initFresh();
+        vari.searchFile = false;
     vari.menuOnFile.style.transform = 'scale(0)';
     vari.menuOnFile.style.display = 'none';
-    createFileList(db,currentId);
+    createFileList(db,currentId,2);
     createBreadCrumb(db,currentId);
     menuOnFile(true);
     menuOnWhite();
@@ -116,7 +147,7 @@ function showCheckNode(checkNode){
     const length = [...allFiles].length;
     const {fileId} = targetParent; //targetParent.fileId = fileId;
     const checked = targetParent.classList.toggle('active'); // 
-
+    const checkedNum = document.querySelector('.check-all span');
     const{checkedBuffer,checkAll,conRow} = vari;
 
     if(checked){
@@ -127,8 +158,7 @@ function showCheckNode(checkNode){
 	delete checkedBuffer[fileId];
 	checkedBuffer.length--;
     }
-
-    console.log(checkedBuffer);
+    
     checkAll.classList.toggle('active',checkedBuffer.length===length && length);
 };
 
@@ -142,7 +172,7 @@ function checkAllNode(single){
     if(single.classList.contains('active')){
 	vari.checkedBuffer = {length:0};
 
-	vari.checkedBuffer.length = childrenAll.length;
+	vari.checkedBuffer.length = vari.conRow.children.length;
 
 	[...allFiles].forEach(function (item){
 	    item.classList.add('active');
@@ -194,7 +224,9 @@ vari.container.addEventListener('click',function(e){
 });
 
 vari.breadCrumbNav.addEventListener('click',function(e){
+    
     const target = e.target;
+    console.log(e.target,e.target.fileId);
     if(target.fileId !==undefined && vari.cuurentId !== target.fileId){
 	openFile(dataBase,vari.currentId = target.fileId);
     }
@@ -343,7 +375,6 @@ function getSelectElement(checkedBuffer){
     for(let key in checkedBuffer){
 	if(key !== 'length'){
 	    const currentItem = checkedBuffer[key];
-
 	    data.push({
 		fileId: parseFloat(key),
 		fileNode: currentItem
@@ -588,6 +619,7 @@ function moveToTarget(db,currentId, targetId){
 vari.moveTo.addEventListener('click',moveToTargetFile);
 
 function moveToTargetFile(e){
+    vari.searchFile = false;
     mouseDraw(false);
     setMoveFileDialog(sureFn, cancelFn);
     const {checkedBuffer} = vari;
@@ -722,6 +754,10 @@ function initFresh(){
     });
     vari.offlineDownload.style.display='block';
     vari.subNav.style.display = 'none';
+    vari.searchFile = false;
+    vari.switchChange=false;
+    vari.rename=false;
+    vari.switchSearch = false;
 }
 
 //鼠标画框
@@ -809,6 +845,7 @@ function mouseDraw(ban){
     const children = vari.conRow.children;
     document.onmousedown = function (e){
 	if(vari.rename) return;
+	if(vari.switchSearch) return;
 	e.preventDefault();
 	if(e.target.classList.contains('col-1') || e.target.classList.contains('nav-bar')||e.target.classList.contains('check-all') ||e.target.classList.contains('count-load-file')){
 	    return;
@@ -924,9 +961,11 @@ function contextMenuFunction(onFile){
 
 	open.onclick = function(){
 	    openFile(dataBase,menu.fileId);
+	    	    initFresh();
 	};
 	move.onclick = function(e){
 	    moveToTargetFile(e);
+	    	    initFresh();
 	};
 	rename.onclick = function(e){
 	    permitRename();
@@ -945,7 +984,10 @@ function contextMenuFunction(onFile){
 	const change = menu.querySelector('.change-list');
 	const list  = menu.querySelector('.list');
 	const pic = menu.querySelector('.pic');
-	console.log(newFolder);
+	const name = sort.querySelector('.name');
+	const date = sort.querySelector('.date');
+	console.log(name);
+	console.log(date);
 	fresh.onclick = function(){
 	    initFresh();
 	};
@@ -971,6 +1013,12 @@ function contextMenuFunction(onFile){
 	    vari.switchChange = false;
 	    list.classList.remove('disable');
 	    pic.classList.add('disable');
+	};
+	name.onclick = function(){
+	    createFileList(dataBase,vari.currentId,1,vari.searchFile);
+	};
+	date.oncilck = function(){
+	    createFileList(dataBase,vari.currentId,2,vari.searchFile);
 	};
     }
 }
@@ -1012,7 +1060,7 @@ function menuOnWhite(){
 	    menu.style.left = x + 'px';
 	    menu.style.top = y + 'px';
 	}
-		    contextMenuFunction();
+	contextMenuFunction();
     });
         document.addEventListener('click',function(e){
 	menu.style.display='none';
@@ -1024,16 +1072,27 @@ function menuOnWhite(){
 vari.changeStyle.onclick = function(e){
     e.stopPropagation();
     const listStyle = document.getElementById('list-style');
+    	menu = vari.menuOnWhite;
+	const list  = menu.querySelector('.list');
+	const pic = menu.querySelector('.pic');
     console.log(vari.changeStyle);
     if(vari.switchChange){
 	listStyle.href = changeList[0];
 	// <i class="fa fa-th-large" aria-hidden="true"></i>
 	vari.changeStyle.classList.add('fa-bars');
 	vari.changeStyle.classList.remove('fa-th-large');
+	vari.dateAll.style.display = 'none';
+	vari.bitAll.style.display='none';
+	pic.classList.remove('disable');
+	    list.classList.add('disable');
     }else{
 	listStyle.href = changeList[1];
 	vari.changeStyle.classList.add('fa-th-large');
 	vari.changeStyle.classList.remove('fa-bars');
+	vari.dateAll.style.display = 'block';
+	vari.bitAll.style.display='block';
+	list.classList.remove('disable');
+	pic.classList.add('disable');
     }
     vari.switchChange = !vari.switchChange;
 };
@@ -1043,3 +1102,127 @@ vari.changeStyle.onclick = function(e){
 //1 按名称排序
 //2 文件大小
 //3 日期
+// function sortFunction(prop){
+//     return function(item1,item2){
+// 	const value1 =  item1[prop];
+// 	const value2 = item2[prop];
+
+// 	if(value1<value2){
+// 	    return -1;
+// 	}else if(value1>value2){
+// 	    return 1;
+// 	}else{
+// 	    return 0;
+// 	}
+//     };
+// }
+
+// const data = getSelectElement(dataBase);
+// data.sort(sortFunction('name'));
+// console.log(data);
+
+    // children.sort(function (a, b){
+    // return a.name[0].localeCompare(b.name[0], 'zh');
+    // });
+
+   // function quickSort(arr){
+
+   //    if(arr.length <= 1){
+   //      return arr;
+   //    }
+
+   //    var base = arr.splice(~~(arr.length/2), 1)[0];
+   //    var left = [];
+   //    var right = [];
+      
+   //    while(arr.length){
+   //      if(arr[0] < base){
+   //        left.push(arr.shift());
+   //      }else{
+   //        right.push(arr.shift());
+   //      }
+   //    }
+   //    return quickSort(left).concat(base, quickSort(right));
+   // }
+
+function sortType(data,prop){
+    data.sort(function(value1,value2){
+	return value2[prop]-value1[prop];
+    });
+}
+
+function sortByName(data,prop){
+    data.sort(function(value1,value2){
+	return value1[prop].localeCompare(value2[prop],'zh');
+    });
+}
+
+function sortList(data){
+    const sortCon = document.querySelector('.sort-con');
+    const li = sortCon.querySelectorAll('.sort-con li');
+    const sort = document.querySelector('.fa-sort-amount-desc');
+
+    sort.onmouseover = function(e){
+	e.stopPropagation();
+	sortCon.style.display = 'block';
+    };
+    [...li].forEach(function(item){
+	item.onmouseover = function(e){
+	    e.stopPropagation();
+	    sortCon.style.display = 'block';
+	};
+    });
+    sortCon.onmouseout = function(e){
+	e.stopPropagation();
+	setTimeout(function(){
+	    	    sortCon.style.display = 'none';
+	},3000);
+    };
+    const file = document.querySelector('.sort-con .file');
+    const date = document.querySelector('.sort-con .change-date');
+        file.onclick = function(){
+	    createFileList(dataBase,vari.currentId,1,vari.searchFile);
+	    sortCon.style.display = 'none';
+    };
+    date.onclick = function(){
+	createFileList(dataBase,vari.currentId,2,vari.searchFile);
+	sortCon.style.display = 'none';
+    };
+
+}
+sortList();
+
+//搜索文件
+searchFile();
+function searchFile(){
+    const searchInput = vari.search.querySelector('.search-text');
+    const searchBtn = vari.search.querySelector('.fa-search');
+    vari.search.onclick = function(e){
+	e.stopPropagation();
+	vari.switchSearch = true;
+	searchInput.focus();
+    };
+    
+    searchInput.value = '音';
+    searchBtn.onclick = function(e){
+		        initFresh();
+	e.stopPropagation();
+	vari.searchFile = true;
+	vari.switchSearch = false;
+	createFileList(dataBase,0,2,true);
+	menuOnFile(true);
+	menuOnWhite();
+	if(!vari.conRow.children.length){
+	showEmpty();
+	    openFile(dataBase,0);
+
+	 return alertMessage('文件没有搜索到','error');
+	}
+    };
+
+    document.onclick = function(){
+	vari.switchSearch = false;
+	mouseDraw(true);
+    };
+};
+

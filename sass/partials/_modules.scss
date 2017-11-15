@@ -98,7 +98,7 @@ ul {
 
 body {
     font-size: 1em;
-    background: url('../img/bg/bg3.jpg') no-repeat;
+    background: url('../img/bg/bg9.jpg') no-repeat;
     background-size: auto 150%;
     background-attachment: fixed;
     height: 100%;
@@ -463,10 +463,42 @@ $check-border:#d6dce4;
     display:flex;
     flex-flow: row nowrap;
     & li{
-	cursor:pointer;
+	cursor:default;
     }
 }
-
+/*----------------------------search-box----------------------*/
+$sort-list-color: #c1bce0;
+.search{
+    .sort-con{
+	width: 7.66666667em;
+	display:none;
+	position: absolute;
+	right: 0px;
+	top: 0;
+	transform: translate(0%,40%);
+	background: $control-color;
+	border: 1px solid $sort-list-color;
+	padding: 0px;
+	    margin: 0px;
+	border-radius: 4px;
+	cursor: default;
+	li{
+	    padding: 5px 1em;
+	    &:hover{
+		background: rgba($btn-main-color,0.2);
+	    }
+	}
+	.disable{
+	    	color: $sort-list-color;
+		&:hover{
+		background: $control-color;
+	    }
+	}
+    }
+}
+.fa-sort-amount-desc{
+    height: 100%;
+}
 /*---------------------------select-all----------------------------------*/
 
 
@@ -698,7 +730,7 @@ $file-icon-base: 10px;
     height: 13.3333em;
     align-self: center;
     text-align: center;
-    overflow:hidden;
+    overflow:auto;
 
     .menu{
     text-align: left;
